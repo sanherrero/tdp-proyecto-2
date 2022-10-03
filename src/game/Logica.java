@@ -6,4 +6,8 @@ public class Logica {
 	public boolean getGameOver() {
 		return gameOver;
 	}
+	
+	public void setGameOver() {
+		gameOver = true;
+	}
 }
