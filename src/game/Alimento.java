@@ -1,13 +1,18 @@
 package game;
 
-public class Alimento extends Pickup {
+public abstract class Alimento extends Entity {
 
-	public Alimento(Grilla g, int points, String t) {
-		super(g, points, t);
+	protected int puntos;
+	protected int increaseSize;
+	
+	public Alimento(Grilla g) {
+		super(g);
 	}
 	
-	public void action() {
-		miGrilla.getSnake().increaseSize();
+	public int getPuntos() {
+		return puntos;
 	}
+	
+	public abstract void action();
 
 }

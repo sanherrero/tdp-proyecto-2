@@ -1,6 +1,6 @@
 package game;
 
-import TDAQueue.Queue;
+import TDAQueue.*;
 
 public class Grilla {
 	protected Snake serpiente;
@@ -9,22 +9,33 @@ public class Grilla {
 	protected Entity[][] tablero;
 	protected Logica miJuego;
 	protected LevelGenerator miGenerador;
-	protected int nivelActual = 0;
 	
 	public Grilla(Logica l) {
-		miGenerador = new LevelGenerator(this);
+		alimentos = new LinkedQueue<Alimento>();
+		powerups = new LinkedQueue<PowerUp>();
+		iniciarTablero();
+		miGenerador = new LevelGenerator();
+		miGenerador.cargarNivel(alimentos, powerups, tablero);
 		miJuego = l;
-		nuevoNivel();
-		alimentos = miGenerador.getAlimentos();
-		powerups = miGenerador.getPowerUps();
+	}
+	
+	public void iniciarTablero() {
+		for(int i=0; i<20; i++) {
+			for(int j=0; j<20; j++) {
+				tablero[i][j] = new Bloque(this);
+			}
+		}
 	}
 	
 	public Snake getSnake() {
 		return serpiente;
 	}
 	
-	public void nuevoNivel() {
-		tablero = miGenerador.getNivel(nivelActual);
-		nivelActual++;
+	public void siguienteNivel() {
+		miGenerador.cargarNivel(alimentos, powerups, tablero);
+	}
+	
+	public void checkColitions() {
+		
 	}
 }

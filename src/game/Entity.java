@@ -6,10 +6,10 @@ public abstract class Entity {
 	protected Grilla miGrilla;
 	protected ImageIcon textura;
 	
-	public Entity(Grilla g, String t) {
+	public Entity(Grilla g) {
 		miGrilla = g;
-		textura = new ImageIcon(t);
 	}
 	
 	public abstract void action();
+	
 }

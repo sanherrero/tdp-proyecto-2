@@ -1,20 +1,14 @@
 package game;
 
-import javax.swing.ImageIcon;
+public abstract class PowerUp extends Entity {
 
-public class PowerUp extends Pickup {
-
-	private ImageIcon newHead;
-	private ImageIcon newBody;
+	protected int puntos;
+	protected final int increaseSize = 3;
 	
-	public PowerUp(Grilla g, int points, String t, String nh, String nb) {
-		super(g, points, t);
-		newHead = new ImageIcon(nh);
-		newBody = new ImageIcon(nb);
+	public PowerUp(Grilla g) {
+		super(g);
 	}
 	
-	public void action() {
-		miGrilla.getSnake().changeColor(newHead, newBody);
-	}
+	public abstract void action();
 	
 }
