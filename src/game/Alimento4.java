@@ -4,16 +4,16 @@ import javax.swing.ImageIcon;
 
 public class Alimento4 extends Alimento {
 
-	public Alimento4(Grilla g) {
-		super(g);
+	public Alimento4() {
+		super();
 		puntos = 100;
 		increaseSize = 6;
 		textura = new ImageIcon("/textures/alimentos/alimento_4.png");
 	}
 	
-	public void action() {
-		miGrilla.getSnake().aumentarTam(increaseSize);
-		miGrilla.getSnake().sumarPuntos(puntos);
+	public void action(Snake serpiente) {
+		serpiente.aumentarTam(increaseSize);
+		serpiente.sumarPuntos(puntos);
 	}
 	
 }

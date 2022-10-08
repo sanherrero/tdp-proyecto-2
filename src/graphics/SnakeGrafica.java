@@ -13,6 +13,8 @@ public class SnakeGrafica {
 		setDefault();
 	}
 	
+	//Se recibe el movimiento de la snake y se toma la textura correspondiente
+	
 	public void rosa(int mov) {
 		switch (mov) {
 			case 0: head = heads[Heads.UP_PINK];

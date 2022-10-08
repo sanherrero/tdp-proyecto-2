@@ -4,16 +4,16 @@ import javax.swing.ImageIcon;
 
 public class PowerUp0 extends PowerUp{
 
-	public PowerUp0(Grilla g) {
-		super(g);
+	public PowerUp0() {
+		super();
 		textura = new ImageIcon("/textures/powerups/powerup_0.png");
 		puntos = 50;
 	}
 	
-	public void action() {
-		miGrilla.getSnake().sumarPuntos(puntos);
-		miGrilla.getSnake().aumentarTam(increaseSize);
-		miGrilla.getSnake().rosa();
+	public void action(Snake serpiente) {
+		serpiente.sumarPuntos(puntos);
+		serpiente.aumentarTam(increaseSize);
+		serpiente.rosa(); //PowerUp0 cambia la textura a rosa.
 	}
 
 }

@@ -3,13 +3,32 @@ package game;
 import javax.swing.ImageIcon;
 
 public abstract class Entity {
-	protected Grilla miGrilla;
-	protected ImageIcon textura;
 	
-	public Entity(Grilla g) {
-		miGrilla = g;
+	protected ImageIcon textura;
+	protected int x;
+	protected int y;
+	
+	public Entity() {
+		x = 0;
+		y = 0;
 	}
 	
-	public abstract void action();
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public abstract void action(Snake serpiente);
 	
 }

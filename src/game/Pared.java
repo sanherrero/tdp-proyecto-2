@@ -4,13 +4,13 @@ import javax.swing.ImageIcon;
 
 public class Pared extends Entity {
 
-	public Pared(Grilla g) {
-		super(g);
+	public Pared() {
+		super();
 		textura = new ImageIcon("/textures/blocks/wall.png");
 	}
 
-	public void action() {
-		miGrilla.getSnake().gameOver();
+	public void action(Snake serpiente) {
+		serpiente.gameOver();
 	}
 
 }

@@ -19,10 +19,11 @@ public class Grilla {
 		miJuego = l;
 	}
 	
+	//Inicia un tablero "standard" con todos bloques de fondo.
 	public void iniciarTablero() {
 		for(int i=0; i<20; i++) {
 			for(int j=0; j<20; j++) {
-				tablero[i][j] = new Bloque(this);
+				tablero[i][j] = new Bloque();
 			}
 		}
 	}
@@ -35,7 +36,7 @@ public class Grilla {
 		miGenerador.cargarNivel(alimentos, powerups, tablero);
 	}
 	
-	public void checkColitions() {
-		
+	public void checkColitions(int x, int y) {
+		tablero[x][y].action(serpiente);
 	}
 }

@@ -5,10 +5,10 @@ public abstract class PowerUp extends Entity {
 	protected int puntos;
 	protected final int increaseSize = 3;
 	
-	public PowerUp(Grilla g) {
-		super(g);
+	public PowerUp() {
+		super();
 	}
 	
-	public abstract void action();
+	public abstract void action(Snake serpiente);
 	
 }

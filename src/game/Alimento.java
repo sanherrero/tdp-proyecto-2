@@ -5,14 +5,14 @@ public abstract class Alimento extends Entity {
 	protected int puntos;
 	protected int increaseSize;
 	
-	public Alimento(Grilla g) {
-		super(g);
+	public Alimento() {
+		super();
 	}
 	
 	public int getPuntos() {
 		return puntos;
 	}
 	
-	public abstract void action();
+	public abstract void action(Snake serpiente);
 
 }
