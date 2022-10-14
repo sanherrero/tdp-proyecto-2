@@ -11,6 +11,7 @@ public class Snake {
 	protected int movActual;
 	protected int x;
 	protected int y;
+	protected Timer cronometroSnake;
 	
 	
 	public Snake(Logica j, Grilla g) {
@@ -82,4 +83,11 @@ public class Snake {
 	public int getMovimientoActual() {
 		return movActual;
 	}
+	//hilo de ejecucion del tiempo de la snake
+	public void tiempo() {
+		cronometroSnake= new Timer(this);
+		Thread d= new Thread(cronometroSnake);
+		d.start();	
+	}
+	
 }

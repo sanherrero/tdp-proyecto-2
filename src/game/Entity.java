@@ -29,6 +29,14 @@ public abstract class Entity {
 		this.y = y;
 	}
 	
+	public void setImagen(ImageIcon i) {
+		textura=i;
+	}
+	
+	public ImageIcon getImagen() {
+		return textura;
+	}
+	
 	public abstract void action(Snake serpiente);
 	
 }
