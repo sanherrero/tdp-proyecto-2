@@ -24,7 +24,7 @@ public class main {
             	for(int y =0 ; y<20;y++) {
             			for(int x =0 ; x<20;x++) {
             				gui.actualizar(x,y, arreglo[x][y].getImagen());
-            				gui.actualizarPuntuacion(y);
+            				
             		}
             	}
             }
