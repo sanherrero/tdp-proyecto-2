@@ -17,7 +17,8 @@ public class Grilla {
 		powerups = new LinkedQueue<PowerUp>();
 		iniciarTablero();
 		miGenerador = new LevelGenerator();
-		miGenerador.cargarNivel(alimentos, powerups, tablero);
+		miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
+		nivelActual++;
 		miJuego = l;
 		
 		
@@ -26,20 +27,19 @@ public class Grilla {
 	
 	//Inicia un tablero "standard" con todos bloques de fondo.
 	public void iniciarTablero() {
-		for(int i=0; i<20; i++) {
-			for(int j=0; j<20; j++) {
-				tablero[i][j] = new Bloque();
-			}
-		}
+		
 		
 	}
+	
+	
 	
 	public Snake getSnake() {
 		return serpiente;
 	}
 	
 	public void siguienteNivel() {
-		miGenerador.cargarNivel(alimentos, powerups, tablero);
+		miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
+		nivelActual++;
 	}
 	
 	public void checkColitions(int x, int y) {

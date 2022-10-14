@@ -1,5 +1,8 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import graphics.SnakeGrafica;
 
 public class Snake {
@@ -13,8 +16,11 @@ public class Snake {
 	protected int y;
 	protected Timer cronometroSnake;
 	protected int puntaje;
+	protected List<ParteCuerpoSnake> lista;
+	protected int colorSnake = 0; // atributo para describir el color de la snake en el momento 1->default, 2->green, 3->pink y 4->red
 	
 	public Snake(Logica j, Grilla g) {
+		lista = new ArrayList<ParteCuerpoSnake>();
 		miGrilla = g;
 		textura = new SnakeGrafica();
 		miJuego = j;
