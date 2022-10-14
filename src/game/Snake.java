@@ -27,6 +27,7 @@ public class Snake {
 		tamActual = 3;
 		movActual = 0;
 		puntaje = 0;
+		tiempo();
 	}
 	
 	public void aumentarTam(int cant) {

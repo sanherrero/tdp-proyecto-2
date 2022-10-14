@@ -12,6 +12,7 @@ public class Logica {
 		miGUI = g;
 		tablero = new Grilla(this);
 		cronometro = new Timer();
+		time();
 	}
 	
 	public boolean getGameOver() {
