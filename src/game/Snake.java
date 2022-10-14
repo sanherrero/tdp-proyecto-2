@@ -12,7 +12,7 @@ public class Snake {
 	protected int x;
 	protected int y;
 	protected Timer cronometroSnake;
-	
+	protected int puntaje;
 	
 	public Snake(Logica j, Grilla g) {
 		miGrilla = g;
@@ -20,14 +20,20 @@ public class Snake {
 		miJuego = j;
 		tamActual = 3;
 		movActual = 0;
+		puntaje = 0;
 	}
 	
 	public void aumentarTam(int cant) {
 		tamActual+=cant;
 	}
 	
-	public void sumarPuntos(int cant) {
+	public void sumarPuntos(int cant) {		
+		puntaje+=cant;
 		
+	}
+	
+	public int getPuntaje() {
+		return puntaje;	
 	}
 	
 	/**

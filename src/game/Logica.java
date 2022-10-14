@@ -36,5 +36,9 @@ public class Logica {
 		
 	}
 	
+	public int getPuntos() {
+		return tablero.getSnake().getPuntaje();
+	}
+	
 	
 }
