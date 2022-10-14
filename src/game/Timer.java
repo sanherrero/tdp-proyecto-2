@@ -2,11 +2,16 @@ package game;
 
 public class Timer implements Runnable {
 
-	private double time, tiempoTranscurrido;
+	private double time, tiempoTranscurrido, reducir;
 	
 	
 	public Timer() {
 		ponerACero();
+		reducir=1;
+	}
+	public Timer(double n) {
+		ponerACero();
+		reducir=n;
 	}
 	
 	private void ponerACero() {
@@ -16,7 +21,7 @@ public class Timer implements Runnable {
 	
 	public void run() {
 		while(true) {
-			tiempoTranscurrido= (System.currentTimeMillis()-time)/1000;
+			tiempoTranscurrido= ((System.currentTimeMillis()-time)/1000)/reducir;
 		}
 	}
 	
