@@ -19,14 +19,8 @@ public class Grilla {
 		miGenerador = new LevelGenerator();
 		miGenerador.cargarNivel(alimentos, powerups, tablero);
 		miJuego = l;
-		while(!alimentos.isEmpty()) {
-			try {
-				System.out.print(alimentos.dequeue().getClass());
-			} catch (EmptyQueueException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		
+		
 		
 	}
 	
