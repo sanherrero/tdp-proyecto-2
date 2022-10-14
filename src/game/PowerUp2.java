@@ -6,7 +6,7 @@ public class PowerUp2 extends PowerUp{
 
 	public PowerUp2() {
 		super();
-		textura = new ImageIcon("/textures/powerups/powerup_2.png");
+		textura = new ImageIcon("src/textures/powerups/powerup_2.png");
 		puntos = 100;
 	}
 	

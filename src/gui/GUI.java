@@ -60,12 +60,12 @@ public class GUI extends JFrame {
 		panelIzq.setLayout(new GridLayout(20, 20, 0, 0));
 	
 		JPanel panelDer = new JPanel();
-		panelDer.setBounds(width, 0, 200, height);
+		panelDer.setBounds(600, 0, 184, 600);
 		getContentPane().add(panelDer);
 		panelDer.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(40, 140, 120, 120);
+		panel.setBounds(46, 280, 120, 120);
 		panelDer.add(panel);
 		panel.setLayout(null);
 		
@@ -77,10 +77,30 @@ public class GUI extends JFrame {
 				tablero[i][j].setBounds(j*30, i*30, 30, 30);
 				panelIzq.add(tablero[i][j]);
 			}		
-		}							
+		}
+		lbl_tiempo = new JLabel();
+		lbl_tiempo.setText("00:00");
+		lbl_tiempo.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_tiempo.setBounds(57, 26, 90, 14);
+		panelDer.add(lbl_tiempo);
+		
+		lbl_puntos = new JLabel();
+		lbl_puntos.setText("0");
+		lbl_puntos.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_puntos.setBounds(57, 67, 90, 14);
+		panelDer.add(lbl_puntos);
+		
+		JLabel lblNewLabel = new JLabel("TIEMPO");
+		lblNewLabel.setBounds(83, 11, 46, 14);
+		panelDer.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("PUNTOS");
+		lblNewLabel_1.setBounds(83, 51, 64, 14);
+		panelDer.add(lblNewLabel_1);
 	}
 	
 	public void actualizar(int i, int j, ImageIcon nuevaImg){
+		
         tablero[i][j].setIcon(new ImageIcon (nuevaImg.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
     }
 	

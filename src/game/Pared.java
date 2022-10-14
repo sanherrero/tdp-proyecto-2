@@ -6,7 +6,7 @@ public class Pared extends Entity {
 
 	public Pared() {
 		super();
-		textura = new ImageIcon("/textures/blocks/wall.png");
+		textura = new ImageIcon("src/textures/blocks/wall.png");
 	}
 
 	public void action(Snake serpiente) {

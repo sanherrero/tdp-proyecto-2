@@ -3,6 +3,7 @@ package game;
 import TDAQueue.*;
 
 public class Grilla {
+	int nivelActual = 0;
 	protected Snake serpiente;
 	protected Queue<Alimento> alimentos;
 	protected Queue<PowerUp> powerups;
@@ -11,12 +12,22 @@ public class Grilla {
 	protected LevelGenerator miGenerador;
 	
 	public Grilla(Logica l) {
+		tablero = new Entity[20][20];
 		alimentos = new LinkedQueue<Alimento>();
 		powerups = new LinkedQueue<PowerUp>();
 		iniciarTablero();
 		miGenerador = new LevelGenerator();
 		miGenerador.cargarNivel(alimentos, powerups, tablero);
 		miJuego = l;
+		while(!alimentos.isEmpty()) {
+			try {
+				System.out.print(alimentos.dequeue().getClass());
+			} catch (EmptyQueueException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	//Inicia un tablero "standard" con todos bloques de fondo.
@@ -26,6 +37,7 @@ public class Grilla {
 				tablero[i][j] = new Bloque();
 			}
 		}
+		
 	}
 	
 	public Snake getSnake() {
@@ -38,5 +50,10 @@ public class Grilla {
 	
 	public void checkColitions(int x, int y) {
 		tablero[x][y].action(serpiente);
+	}
+	
+	public Entity[][] getTablero(){
+		return tablero;
+		
 	}
 }

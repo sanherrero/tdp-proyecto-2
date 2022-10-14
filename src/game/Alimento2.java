@@ -8,7 +8,7 @@ public class Alimento2 extends Alimento {
 		super();
 		puntos = 75;
 		increaseSize = 4;
-		textura = new ImageIcon("/textures/alimentos/alimento_2.png");
+		textura = new ImageIcon("src/textures/alimentos/alimento_2.png");
 	}
 	
 	public void action(Snake serpiente) {
