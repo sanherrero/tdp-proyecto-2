@@ -14,10 +14,6 @@ public class mainSnake {
 					frame.setVisible(true);
 					frame.setFocusable(true);
 				    Logica snake = new Logica(frame);
-				    /*Timer r = new Timer(snake);
-				    Thread d= new Thread(r);
-					d.start();	*/
-					
 				} });
 			
 	}
