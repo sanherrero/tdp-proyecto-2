@@ -90,10 +90,13 @@ public class Snake {
 		return movActual;
 	}
 	//hilo de ejecucion del tiempo de la snake
-	public void tiempo() {
-		cronometroSnake= new Timer(this);
+	private void tiempo() {
+		cronometroSnake= new Timer();
 		Thread d= new Thread(cronometroSnake);
 		d.start();	
+	}
+	public double getTiempo() {
+		return cronometroSnake.getTiempo()/0.5;
 	}
 	
 }

@@ -11,7 +11,7 @@ public class Logica {
 	public Logica(GUI g) {
 		miGUI = g;
 		tablero = new Grilla(this);
-		cronometro = new Timer(this);
+		cronometro = new Timer();
 	}
 	
 	public boolean getGameOver() {
@@ -30,7 +30,9 @@ public class Logica {
 		Thread d= new Thread(cronometro);
 		d.start();	
 	}
-	
+	public double getTiempo() {
+		return cronometro.getTiempo();
+	}
 	
 	public void actualizar() {
 		
