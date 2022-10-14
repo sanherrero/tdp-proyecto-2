@@ -119,8 +119,9 @@ public class GUI extends JFrame {
 		lbl_puntos.setText(Integer.toString(p));
 	}
 
-	public void actualizarTiempo(int tiempo) {
-		lbl_tiempo.setText(Integer.toString(tiempo));
+	
+	public void actualizarTiempo() {
+		lbl_tiempo.setText(""+ miJuego.getTiempo());
 	}
 
 	public void gameOver() {

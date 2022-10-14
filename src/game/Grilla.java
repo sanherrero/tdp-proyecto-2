@@ -27,10 +27,7 @@ public class Grilla {
 	
 	//Inicia un tablero "standard" con todos bloques de fondo.
 	public void iniciarTablero() {
-		
-		
-	}
-	
+		}
 	
 	
 	public Snake getSnake() {

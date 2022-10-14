@@ -27,6 +27,7 @@ public class Snake {
 		tamActual = 3;
 		movActual = 0;
 		puntaje = 0;
+		tiempo();
 	}
 	
 	public void aumentarTam(int cant) {
@@ -96,10 +97,13 @@ public class Snake {
 		return movActual;
 	}
 	//hilo de ejecucion del tiempo de la snake
-	public void tiempo() {
-		cronometroSnake= new Timer(this);
+	private void tiempo() {
+		cronometroSnake= new Timer(0.5);
 		Thread d= new Thread(cronometroSnake);
 		d.start();	
+	}
+	public double getTiempo() {
+		return cronometroSnake.getTiempo();
 	}
 	
 }
