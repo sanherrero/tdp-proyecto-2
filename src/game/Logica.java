@@ -6,13 +6,10 @@ public class Logica {
 	protected boolean gameOver = false;
 	protected GUI miGUI;
 	protected Grilla tablero;
-	protected Timer cronometro;
 	
 	public Logica(GUI g) {
 		miGUI = g;
 		tablero = new Grilla(this);
-		cronometro = new Timer();
-		time();
 	}
 	
 	public boolean getGameOver() {
@@ -26,14 +23,7 @@ public class Logica {
 	private void siguienteNivel() {
 		tablero.siguienteNivel();
 	}
-	//hilo de ejecucion del tiempo del juego
-	private void time() {
-		Thread d= new Thread(cronometro);
-		d.start();	
-	}
-	public double getTiempo() {
-		return cronometro.getTiempo();
-	}
+
 	
 	public void actualizar() {
 		

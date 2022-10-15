@@ -1,11 +1,16 @@
 package game;
 
+import gui.GUI;
+
 public class Timer implements Runnable {
 
 	private double time, tiempoTranscurrido, reducir;
+	private GUI gui;
 	
 	
-	public Timer() {
+	
+	public Timer(GUI g) {
+		gui=g;
 		ponerACero();
 		reducir=1;
 	}
@@ -22,6 +27,9 @@ public class Timer implements Runnable {
 	public void run() {
 		while(true) {
 			tiempoTranscurrido= ((System.currentTimeMillis()-time)/1000)/reducir;
+			if(reducir==1) {
+				gui.Tiempo().setText(""+(int)tiempoTranscurrido);
+			} 
 		}
 	}
 	

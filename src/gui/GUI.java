@@ -29,6 +29,7 @@ import game.Bloque;
 import game.Logica;
 import game.Pared;
 import game.Snake;
+import game.Timer;
 
 public class GUI extends JFrame {
 
@@ -39,14 +40,15 @@ public class GUI extends JFrame {
 	private static JLabel lbl_tiempo;
 	private static JLabel lbl_puntos;
 	private static Logica miJuego;
+	private static Timer reloj;
 
 
 	public GUI() {
+		
 		initialize();
 	}
 
 	private void initialize() {
-
 		width = 600;
 		height = 600;
 
@@ -108,6 +110,10 @@ public class GUI extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("PUNTOS");
 		lblNewLabel_1.setBounds(83, 51, 64, 14);
 		panelDer.add(lblNewLabel_1);
+		Timer t= new Timer(this);
+		Thread d = new Thread(t);
+		d.start();
+		
 	}
 
 	public void actualizar(int i, int j, ImageIcon nuevaImg){
@@ -120,8 +126,9 @@ public class GUI extends JFrame {
 	}
 
 	
-	public void actualizarTiempo() {
-		lbl_tiempo.setText(""+ miJuego.getTiempo());
+	public JLabel Tiempo() {
+		//lbl_tiempo.setText(""+ reloj.getTiempo());
+		return lbl_tiempo;
 	}
 
 	public void gameOver() {
