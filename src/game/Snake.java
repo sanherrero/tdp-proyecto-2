@@ -15,6 +15,7 @@ public class Snake {
 	protected int x;
 	protected int y;
 	protected Timer cronometroSnake;
+	protected int tiempoS;
 	protected int puntaje;
 	protected List<ParteCuerpoSnake> lista;
 	protected int colorSnake = 0; // atributo para describir el color de la snake en el momento 1->default, 2->green, 3->pink y 4->red
@@ -27,6 +28,7 @@ public class Snake {
 		tamActual = 3;
 		movActual = 0;
 		puntaje = 0;
+		tiempoS=0;
 		tiempo();
 	}
 	
@@ -98,12 +100,15 @@ public class Snake {
 	}
 	//hilo de ejecucion del tiempo de la snake
 	private void tiempo() {
-		cronometroSnake= new Timer(0.5);
+		cronometroSnake= new Timer(this,0.5);
 		Thread d= new Thread(cronometroSnake);
 		d.start();	
 	}
-	public double getTiempo() {
-		return cronometroSnake.getTiempo();
+	public int getTiempo() {
+		return tiempoS;
 	}
+	public void setTiempo(int t) {
+		tiempoS=t;
+	};
 	
 }
