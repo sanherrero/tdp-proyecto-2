@@ -7,6 +7,7 @@ public class Timer implements Runnable {
 	private double time, tiempoTranscurrido, reducir;
 	private GUI gui;
 	private Snake snake;
+	int h, m, s;
 	
 	
 	
@@ -14,6 +15,9 @@ public class Timer implements Runnable {
 		gui=g;
 		ponerACero();
 		reducir=1;
+		h=0;
+		m=0;
+		s=0;
 	}
 	public Timer(Snake s,double n) {
 		ponerACero();
@@ -30,7 +34,17 @@ public class Timer implements Runnable {
 		while(true) {
 			tiempoTranscurrido= ((System.currentTimeMillis()-time)/1000)/reducir;
 			if(reducir==1) {
-				gui.Tiempo().setText(""+(int)tiempoTranscurrido+" seg.");
+				s=(int)tiempoTranscurrido;
+				if(s>=60) {
+					m+=1;
+					ponerACero();
+					if(m>=60) {
+						m=0;
+						h+=1;
+						ponerACero();
+					}
+				}
+				gui.Tiempo().setText(""+h+":"+m+":"+s);
 			}
 			else {
 				snake.setTiempo((int)tiempoTranscurrido);
