@@ -30,7 +30,7 @@ public class Timer implements Runnable {
 		while(true) {
 			tiempoTranscurrido= ((System.currentTimeMillis()-time)/1000)/reducir;
 			if(reducir==1) {
-				gui.Tiempo().setText(""+(int)tiempoTranscurrido);
+				gui.Tiempo().setText(""+(int)tiempoTranscurrido+" seg.");
 			}
 			else {
 				snake.setTiempo((int)tiempoTranscurrido);
