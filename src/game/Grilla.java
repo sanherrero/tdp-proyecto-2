@@ -17,12 +17,21 @@ public class Grilla {
 		powerups = new LinkedQueue<PowerUp>();
 		iniciarTablero();
 		miGenerador = new LevelGenerator();
-		miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
+		Queue<Bloque> posSnake = miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
 		nivelActual++;
+		
 		miJuego = l;
 		
+		serpiente = new Snake(posSnake,miJuego,this);
+		if(serpiente == null)
+			System.out.println("no ma la contes asdasdadasdasd");
 		
-		
+		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
+			tablero[i.getX()][i.getY()] = i;
+		}
+		if(serpiente == null)
+			System.out.println("no ma la contes asdasdadasdasd");
+		System.out.println("Termino de ejecutar");
 	}
 	
 	//Inicia un tablero "standard" con todos bloques de fondo.
@@ -31,7 +40,7 @@ public class Grilla {
 	
 	
 	public Snake getSnake() {
-		return serpiente;
+		return this.serpiente;
 	}
 	
 	public void siguienteNivel() {
@@ -47,5 +56,23 @@ public class Grilla {
 		return tablero;
 		
 	}
+	
+	private void buscarPosAleatoriaParaSnake() {
+		
+	}
+	
+	public void actualizar() {
+		
+		miJuego.actualizar();
+	}
+	
+	public void actualizarPosSnake(ParteCuerpoSnake cola) {
+		tablero[cola.getX()][cola.getY()] = new Bloque(cola.getX(),cola.getY());
+		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
+			tablero[i.getX()][i.getY()] = i;
+		}
+		actualizar();
+	}
+	
 
 }

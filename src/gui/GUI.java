@@ -6,17 +6,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Random;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,9 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import game.Bloque;
+import game.Entity;
 import game.Logica;
-import game.Pared;
 import game.Snake;
 import game.Timer;
 
@@ -36,16 +25,24 @@ public class GUI extends JFrame {
 	private static int height;
 	private static int width;
 	private static JLabel[][] tablero;
-	private static Snake snake;
+	private Snake serpiente;
 	private static JLabel lbl_tiempo;
 	private static JLabel lbl_puntos;
 	private static Logica miJuego;
 	private static Timer reloj;
+	private static Oyente teclado;
 
 
-	public GUI() {
-		
+
+	
+public GUI(Snake s) {
+		this.serpiente = s;
+		if(s == null)
+			System.out.println("no ma la contes");
 		initialize();
+		teclado = new Oyente();
+		
+		this.addKeyListener(teclado);
 	}
 
 	private void initialize() {
@@ -114,6 +111,17 @@ public class GUI extends JFrame {
 		Thread d = new Thread(t);
 		d.start();
 		
+		
+	}
+	
+	public void actualizar(Entity[][] arreglo) {        
+    	for(int y =0 ; y<20;y++) {
+    			for(int x =0 ; x<20;x++) {
+    				actualizar(x,y, arreglo[x][y].getImagen());
+    				System.out.println(arreglo[x][y].getClass()+" posx: "+x+" posy: "+y);
+    				
+    		}
+    	}
 	}
 
 	public void actualizar(int i, int j, ImageIcon nuevaImg){
@@ -134,5 +142,48 @@ public class GUI extends JFrame {
 	public void gameOver() {
 		JOptionPane.showMessageDialog(null, "Game Over");
 	}
+	public void setSnake(Snake s) {
+		serpiente = s;
+		
+	}
+	
+	private class Oyente implements KeyListener{
+		public void keyTyped(KeyEvent e) {
+			if(e.getKeyChar() == 'w' || e.getExtendedKeyCode() == KeyEvent.VK_UP) {
 
+				serpiente.moverArriba();
+				System.out.println("arriba");
+			}
+			if(e.getKeyChar() == 's' || e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
+				serpiente.moverAbajo();
+				System.out.println("abajo");
+			}
+			if(e.getKeyChar() == 'a' || e.getExtendedKeyCode() == KeyEvent.VK_LEFT) {
+				serpiente.moverIzquierda();
+				System.out.println("izquierda");
+			}
+			if(e.getKeyChar() == 'd' || e.getExtendedKeyCode() == KeyEvent.VK_RIGHT) {
+				serpiente.moverDerecha();
+				System.out.println("derecha");
+			}
+			
+			
+		}
+
+
+		
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 }

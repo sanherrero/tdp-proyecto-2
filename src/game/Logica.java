@@ -7,9 +7,14 @@ public class Logica {
 	protected GUI miGUI;
 	protected Grilla tablero;
 	
-	public Logica(GUI g) {
-		miGUI = g;
+	public Logica() {
 		tablero = new Grilla(this);
+		if(tablero.getSnake() == null)
+			System.out.println("no ma la contes logica");
+		miGUI = new GUI(tablero.getSnake());
+		miGUI.setVisible(true);
+		
+		
 	}
 	
 	public boolean getGameOver() {
@@ -26,12 +31,15 @@ public class Logica {
 
 	
 	public void actualizar() {
-		
+		miGUI.actualizar(tablero.getTablero());
 	}
 	
 	public int getPuntos() {
 		return tablero.getSnake().getPuntaje();
 	}
 	
+	public Grilla getGrilla() {
+		return tablero;
+	}
 	
 }

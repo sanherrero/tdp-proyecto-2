@@ -3,6 +3,10 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
+import TDAQueue.EmptyQueueException;
+import TDAQueue.Queue;
 import graphics.SnakeGrafica;
 
 public class Snake {
@@ -11,22 +15,45 @@ public class Snake {
 	protected Logica miJuego;
 	protected Grilla miGrilla;
 	protected int tamActual;
-	protected int movActual;
+	
 	protected int x;
 	protected int y;
 	protected Timer cronometroSnake;
 	protected int tiempoS;
 	protected int puntaje;
+	protected ParteCuerpoSnake cabeza;
 	protected List<ParteCuerpoSnake> lista;
-	protected int colorSnake = 0; // atributo para describir el color de la snake en el momento 1->default, 2->green, 3->pink y 4->red
+	protected int colorSnake = 1; // atributo para describir el color de la snake en el momento 0->default, 1->green, 2->pink y 3->red
+	protected int direccion = 2;  // atributo para describir la direccion de la snake en el momento 0->arriba, 1->abajo, 2->izquierda y 3->derecha
+	protected String[] cabezaDefault = {"src/textures/hd/head-top-default.png", "src/textures/hd/head-bottom-default.png","src/textures/hd/head-left-default.png","src/textures/hd/head-right-default.png"};
+	protected String[] cabezaGreen = {"src/textures/hd/head-top-green.png", "src/textures/hd/head-bottom-green.png","src/textures/hd/head-left-green.png","src/textures/hd/head-right-green.png"};
+	protected String[] cabezaPink = {"src/textures/hd/head-top-pink.png", "src/textures/hd/head-bottom-pink.png","src/textures/hd/head-left-pink.png","src/textures/hd/head-right-pink.png"};
+	protected String[] cabezaRed = {"src/textures/hd/head-top-red.png", "src/textures/hd/head-bottom-red.png","src/textures/hd/head-left-red.png","src/textures/hd/head-right-red.png"};
 	
-	public Snake(Logica j, Grilla g) {
+	public Snake() {}
+	public Snake(Queue<Bloque> posiciones,Logica j, Grilla g) {
 		lista = new ArrayList<ParteCuerpoSnake>();
+		while(!posiciones.isEmpty()) {
+			ParteCuerpoSnake parteNueva = new ParteCuerpoSnake();
+			Bloque pos;
+			try {
+				pos = posiciones.dequeue();
+				parteNueva.setX(pos.getX());
+				parteNueva.setY(pos.getY());
+				lista.add(parteNueva);
+			} catch (EmptyQueueException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		crearCabeza(lista.get(0));
+		
 		miGrilla = g;
 		textura = new SnakeGrafica();
 		miJuego = j;
 		tamActual = 3;
-		movActual = 0;
+		
 		puntaje = 0;
 		tiempoS=0;
 		tiempo();
@@ -53,17 +80,7 @@ public class Snake {
 	 * 3 = left
 	 */
 	
-	public void rosa() {
-		textura.rosa(movActual); //Llama al rosa de su representación gráfica pasándole su movimiento actual
-	}
 	
-	public void rojo() {
-		textura.rojo(movActual); //Llama al rojo de su representación gráfica pasándole su movimiento actual
-	}
-	
-	public void verde() {
-		textura.verde(movActual); //Llama al verde de su representación gráfica pasándole su movimiento actual
-	}
 	
 	public void chocar() {
 		miJuego.setGameOver();
@@ -71,24 +88,72 @@ public class Snake {
 	
 	//Pasa al checkColotions las coordenadas del bloque que va a chocar.
 	
-	public void moverArriba() {
-		movActual = 0;
-		miGrilla.checkColitions(x, y-1);
+	public void moverIzquierda() {
+		if(direccion !=3) {
+			direccion = 2;
+			cabeza.setImagen(new ImageIcon(cabezaDefault[direccion]));
+			ParteCuerpoSnake cola = lista.remove(lista.size() - 1);
+			ParteCuerpoSnake parteAux = new ParteCuerpoSnake();
+			parteAux.setY(cabeza.getY());
+			parteAux.setX(cabeza.getX());
+			lista.add(1,parteAux);
+			cabeza.setY(cabeza.getY() - 1);
+			miGrilla.actualizarPosSnake(cola);
+			
+		}
+		
+	}
+	
+	public void rosa() {}
+	public void verde() {}
+	public void rojo() {}
+	
+	
+
+	public void moverDerecha() {
+		if(direccion !=2) {
+			direccion = 3;
+			cabeza.setImagen(new ImageIcon(cabezaDefault[direccion]));
+			ParteCuerpoSnake cola = lista.remove(lista.size() - 1);
+			ParteCuerpoSnake parteAux = new ParteCuerpoSnake();
+			parteAux.setY(cabeza.getY());
+			parteAux.setX(cabeza.getX());
+			lista.add(1,parteAux);
+			cabeza.setY(cabeza.getY() + 1);
+			miGrilla.actualizarPosSnake(cola);
+			
+		}
 	}
 	
 	public void moverAbajo() {
-		movActual = 2;
-		miGrilla.checkColitions(x, y+1);
+		if(direccion !=0) {
+			direccion = 1;
+			cabeza.setImagen(new ImageIcon(cabezaDefault[direccion]));
+			ParteCuerpoSnake cola = lista.remove(lista.size() - 1);
+			ParteCuerpoSnake parteAux = new ParteCuerpoSnake();
+			parteAux.setY(cabeza.getY());
+			parteAux.setX(cabeza.getX());
+			lista.add(1,parteAux);
+			cabeza.setX(cabeza.getX() + 1);
+			
+			miGrilla.actualizarPosSnake(cola);
+			
+		}
 	}
 	
-	public void moverDerecha() {
-		movActual = 1;
-		miGrilla.checkColitions(x+1, y);
-	}
-	
-	public void moverIzquierda() {
-		movActual = 3;
-		miGrilla.checkColitions(x-1, y);
+	public void moverArriba() {
+		if(direccion !=1) {
+			direccion = 0;
+			cabeza.setImagen(new ImageIcon(cabezaDefault[direccion]));
+			ParteCuerpoSnake cola = lista.remove(lista.size() - 1);
+			ParteCuerpoSnake parteAux = new ParteCuerpoSnake();
+			parteAux.setY(cabeza.getY());
+			parteAux.setX(cabeza.getX());
+			lista.add(1,parteAux);
+			cabeza.setX(cabeza.getX() - 1);
+			miGrilla.actualizarPosSnake(cola);
+			
+		}
 	}
 	
 	public void gameOver() {
@@ -96,7 +161,7 @@ public class Snake {
 	}
 	
 	public int getMovimientoActual() {
-		return movActual;
+		return direccion;
 	}
 	//hilo de ejecucion del tiempo de la snake
 	private void tiempo() {
@@ -109,6 +174,32 @@ public class Snake {
 	}
 	public void setTiempo(int t) {
 		tiempoS=t;
-	};
+	}
+	private void crearCabeza(ParteCuerpoSnake c) {
+		cabeza = c;
+		cabeza.setImagen( new ImageIcon(cabezaDefault[direccion]));
+		
+	}
+	public List<ParteCuerpoSnake> getCuerpo(){
+		return lista;
+	}
+	
+	private void cambiarImagenCabeza(int color, int sentido) {
+		if(color == 0) {
+			cabeza.setImagen(new ImageIcon(cabezaDefault[sentido]));
+		}
+		if(color == 1) {
+			cabeza.setImagen(new ImageIcon(cabezaGreen[sentido]));
+		}
+		if(color == 2) {
+			cabeza.setImagen(new ImageIcon(cabezaPink[sentido]));
+		}
+		if(color == 3) {
+			cabeza.setImagen(new ImageIcon(cabezaRed[sentido]));
+		}
+		
+	}
+	
+	
 	
 }

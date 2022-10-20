@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import TDAQueue.*;
 
@@ -15,22 +17,40 @@ public class LevelGenerator {
 	
 	
 	public LevelGenerator() {
-		nivActual = -1;
+		
 	}
-public void cargarNivel(int lvl,Queue<Alimento> a, Queue<PowerUp> pu, Entity[][] t) {
+public Queue<Bloque> cargarNivel(int lvl,Queue<Alimento> a, Queue<PowerUp> pu, Entity[][] t) {
 	File txt_nivel = new File(niveles[lvl]);
 	
+	List<Queue<Bloque>> posParaSnake = new ArrayList<Queue<Bloque>>();
+	
 	try {
+		
 		BufferedReader txt = new BufferedReader(new FileReader(txt_nivel));
 		for(int i=0; i<20;i++) {
+			int contAux =0;
+			Queue<Bloque> colaAux = new LinkedQueue<Bloque>();
 			String linea = txt.readLine();
 			for (int j = 0; j <linea.length (); j++){
 				if(linea.charAt (j) == 'X') {
 					t[i][j] = new Pared();
         			t[i][j].setX(i);
         			t[i][j].setY(j);
+        			contAux = 0;
+					colaAux = new LinkedQueue<Bloque>();
 				}else {
-					t[i][j] = new Bloque(i,j);
+					Bloque bloqueAux = new Bloque(i,j);
+					t[i][j] = bloqueAux;
+					
+					colaAux.enqueue(bloqueAux);
+					contAux++;
+					if(contAux ==3) {
+						posParaSnake.add(colaAux);
+						contAux = 0;
+						colaAux = new LinkedQueue<Bloque>();
+					}
+						
+					
         			
 					
 				}				
@@ -72,6 +92,17 @@ public void cargarNivel(int lvl,Queue<Alimento> a, Queue<PowerUp> pu, Entity[][]
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
+	
+	int numeroRandom = (int)(Math.random()*posParaSnake.size());
+	int contAux =0;
+	for(Queue<Bloque> i : posParaSnake ) {
+		contAux++;
+		if(contAux == numeroRandom) {
+			return i;
+		}
+		
+	}
+	return null;
 		
 		
 	}
