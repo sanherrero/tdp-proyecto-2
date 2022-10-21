@@ -28,6 +28,7 @@ public class Grilla {
 		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
 			tablero[i.getX()][i.getY()] = i;
 		}
+		agregarPickUpAleatorio();
 		
 		
 	}
@@ -46,8 +47,12 @@ public class Grilla {
 		nivelActual++;
 	}
 	
-	public void checkColitions(int x, int y) {
-		tablero[x][y].action(serpiente);
+	public void checkColitions() {
+		
+		int posXCabeza = serpiente.getCabeza().getX();
+		int posYCabeza = serpiente.getCabeza().getY();
+		
+		tablero[posXCabeza][posYCabeza].action(serpiente);
 	}
 	
 	public Entity[][] getTablero(){
@@ -60,16 +65,73 @@ public class Grilla {
 	}
 	
 	public void actualizar() {
-		
 		miJuego.actualizar();
 	}
 	
-	public void actualizarPosSnake(ParteCuerpoSnake cola) {
+	public void eliminarColaDelTablero(ParteCuerpoSnake cola) {
 		tablero[cola.getX()][cola.getY()] = new Bloque(cola.getX(),cola.getY());
+	}
+	
+	public void actualizarPosSnake() {
+		checkColitions();
+		
 		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
 			tablero[i.getX()][i.getY()] = i;
 		}
 		actualizar();
+	}
+	
+	public void agregarPickUpAleatorio() {
+		
+		System.out.println("agrego alimento");
+		int numRandom = (int)(Math.random()*2);
+		
+			try {
+				if(!alimentos.isEmpty() && !powerups.isEmpty()) {
+					if(numRandom == 0) {
+						buscarLugar(alimentos.dequeue());
+					}else {
+						buscarLugar(powerups.dequeue());
+					}
+				
+				}else {
+					if(!alimentos.isEmpty() && powerups.isEmpty())
+						buscarLugar(alimentos.dequeue());
+					if(alimentos.isEmpty() && !powerups.isEmpty())
+						buscarLugar(powerups.dequeue());
+					
+				}
+				if(alimentos.isEmpty() && powerups.isEmpty())
+					terminoNivel();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		
+	}
+	
+	private void terminoNivel() {
+		System.out.println("termino nivel");
+		
+	}
+
+	private void buscarLugar(Entity pickUp) {
+		
+		boolean hayLugar = false;
+		
+		while(hayLugar == false) {
+			int posXRandom = (int)(Math.random()*19);
+			int posYRandom = (int)(Math.random()*19);
+			hayLugar= tablero[posXRandom][posYRandom].hayEspacio();
+			
+			if(hayLugar) {
+				tablero[posXRandom][posYRandom] = pickUp;
+				pickUp.setX(posXRandom);
+				pickUp.setY(posYRandom);
+			}
+				
+		}
+		
 	}
 	
 

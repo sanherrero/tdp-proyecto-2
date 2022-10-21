@@ -29,12 +29,12 @@ public class Bloque extends Entity {
 	}
 
 	public void action(Snake serpiente) {
-		switch(serpiente.getMovimientoActual()) {
-			case 0: serpiente.moverArriba();
-			case 1: serpiente.moverDerecha();
-			case 2: serpiente.moverAbajo();
-			case 3: serpiente.moverIzquierda();
-		}
+		
+	}
+
+
+	protected boolean hayEspacio() {
+		return true;
 	}
 	
 }

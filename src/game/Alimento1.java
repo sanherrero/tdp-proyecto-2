@@ -11,9 +11,6 @@ public class Alimento1 extends Alimento {
 		textura = new ImageIcon("src/textures/alimentos/alimento_1.png");
 	}
 	
-	public void action(Snake serpiente) {
-		serpiente.aumentarTam(increaseSize);
-		serpiente.sumarPuntos(puntos);
-	}
+	
 	
 }

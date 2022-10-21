@@ -11,7 +11,7 @@ public class main {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
             	Logica l = new Logica();
-            	l.getGrilla().getSnake().cambiarRosa();
+            	
             	l.actualizar();
             	
             	

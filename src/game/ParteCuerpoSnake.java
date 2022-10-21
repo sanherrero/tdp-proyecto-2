@@ -16,5 +16,8 @@ public class ParteCuerpoSnake extends Entity {
 	public void cambiarColor(int c) {
 		textura = new ImageIcon(texturas[c]);
 	}
+	protected boolean hayEspacio() {
+		return false;
+	}
 	
 }

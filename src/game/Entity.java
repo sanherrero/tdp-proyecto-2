@@ -38,5 +38,7 @@ public abstract class Entity {
 	}
 	
 	public abstract void action(Snake serpiente);
+
+	protected abstract boolean hayEspacio();
 	
 }

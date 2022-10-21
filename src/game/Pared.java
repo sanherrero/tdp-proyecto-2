@@ -12,5 +12,9 @@ public class Pared extends Entity {
 	public void action(Snake serpiente) {
 		serpiente.gameOver();
 	}
+	
+	protected boolean hayEspacio() {
+		return false;
+	}
 
 }

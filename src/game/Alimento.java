@@ -9,10 +9,21 @@ public abstract class Alimento extends Entity {
 		super();
 	}
 	
+	
+	
+	protected boolean hayEspacio() {
+		return false;
+	}
 	public int getPuntos() {
 		return puntos;
 	}
+	public int getIncreaseSize() {
+		return increaseSize;
+	}
 	
-	public abstract void action(Snake serpiente);
+	public void action(Snake serpiente) {
+		serpiente.action(this);
+	}
+	
 
 }
