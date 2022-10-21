@@ -18,7 +18,8 @@ import javax.swing.WindowConstants;
 import game.Entity;
 import game.Logica;
 import game.Snake;
-import game.Timer;
+import game.TimerGui;
+import game.TimerSnake;
 
 public class GUI extends JFrame {
 
@@ -29,7 +30,7 @@ public class GUI extends JFrame {
 	private static JLabel lbl_tiempo;
 	private static JLabel lbl_puntos;
 	private static Logica miJuego;
-	private static Timer reloj;
+	private static TimerGui reloj;
 	private static Oyente teclado;
 
 
@@ -37,15 +38,13 @@ public class GUI extends JFrame {
 	
 public GUI(Snake s) {
 		this.serpiente = s;
-		if(s == null)
-			System.out.println("no ma la contes");
 		initialize();
-		teclado = new Oyente();
 		
-		this.addKeyListener(teclado);
 	}
 
 	private void initialize() {
+		
+		
 		width = 600;
 		height = 600;
 
@@ -107,9 +106,13 @@ public GUI(Snake s) {
 		JLabel lblNewLabel_1 = new JLabel("PUNTOS");
 		lblNewLabel_1.setBounds(83, 51, 64, 14);
 		panelDer.add(lblNewLabel_1);
-		Timer t= new Timer(this);
-		Thread d = new Thread(t);
-		d.start();
+		
+		teclado = new Oyente();
+		
+		this.addKeyListener(teclado);
+		
+		
+		
 		
 		
 	}
@@ -118,7 +121,7 @@ public GUI(Snake s) {
     	for(int y =0 ; y<20;y++) {
     			for(int x =0 ; x<20;x++) {
     				actualizar(x,y, arreglo[x][y].getImagen());
-    				System.out.println(arreglo[x][y].getClass()+" posx: "+x+" posy: "+y);
+    				
     				
     		}
     	}
@@ -147,23 +150,38 @@ public GUI(Snake s) {
 		
 	}
 	
+	private void startHilos() {
+		TimerGui tg= new TimerGui(this);
+		Thread d = new Thread(tg);
+		d.start();
+		
+		TimerSnake ts= new TimerSnake(serpiente);
+		Thread ds = new Thread(ts);
+		ds.start();
+	}
+	
 	private class Oyente implements KeyListener{
+		boolean iniciarHilos = true;
 		public void keyTyped(KeyEvent e) {
+			if(iniciarHilos) {
+				iniciarHilos = false;
+				startHilos();
+			}
 			if(e.getKeyChar() == 'w' || e.getExtendedKeyCode() == KeyEvent.VK_UP) {
 
-				serpiente.moverArriba();
+				serpiente.cambiarDireccion(0);
 				System.out.println("arriba");
 			}
 			if(e.getKeyChar() == 's' || e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
-				serpiente.moverAbajo();
+				serpiente.cambiarDireccion(1);
 				System.out.println("abajo");
 			}
 			if(e.getKeyChar() == 'a' || e.getExtendedKeyCode() == KeyEvent.VK_LEFT) {
-				serpiente.moverIzquierda();
+				serpiente.cambiarDireccion(2);
 				System.out.println("izquierda");
 			}
 			if(e.getKeyChar() == 'd' || e.getExtendedKeyCode() == KeyEvent.VK_RIGHT) {
-				serpiente.moverDerecha();
+				serpiente.cambiarDireccion(3);
 				System.out.println("derecha");
 			}
 			

@@ -23,15 +23,13 @@ public class Grilla {
 		miJuego = l;
 		
 		serpiente = new Snake(posSnake,miJuego,this);
-		if(serpiente == null)
-			System.out.println("no ma la contes asdasdadasdasd");
+		
 		
 		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
 			tablero[i.getX()][i.getY()] = i;
 		}
-		if(serpiente == null)
-			System.out.println("no ma la contes asdasdadasdasd");
-		System.out.println("Termino de ejecutar");
+		
+		
 	}
 	
 	//Inicia un tablero "standard" con todos bloques de fondo.

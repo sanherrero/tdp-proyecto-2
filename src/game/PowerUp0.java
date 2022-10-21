@@ -13,7 +13,7 @@ public class PowerUp0 extends PowerUp{
 	public void action(Snake serpiente) {
 		serpiente.sumarPuntos(puntos);
 		serpiente.aumentarTam(increaseSize);
-		serpiente.rosa(); //PowerUp0 cambia la textura a rosa.
+		serpiente.cambiarRosa(); //PowerUp0 cambia la textura a rosa.
 	}
 
 }

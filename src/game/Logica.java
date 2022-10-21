@@ -9,8 +9,7 @@ public class Logica {
 	
 	public Logica() {
 		tablero = new Grilla(this);
-		if(tablero.getSnake() == null)
-			System.out.println("no ma la contes logica");
+		
 		miGUI = new GUI(tablero.getSnake());
 		miGUI.setVisible(true);
 		

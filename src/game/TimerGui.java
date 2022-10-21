@@ -2,7 +2,7 @@ package game;
 
 import gui.GUI;
 
-public class Timer implements Runnable {
+public class TimerGui implements Runnable {
 
 	private double time, tiempoTranscurrido, reducir;
 	private GUI gui;
@@ -11,7 +11,7 @@ public class Timer implements Runnable {
 	
 	
 	
-	public Timer(GUI g) {
+	public TimerGui(GUI g) {
 		gui=g;
 		ponerACero();
 		reducir=1;
@@ -19,7 +19,7 @@ public class Timer implements Runnable {
 		m=0;
 		s=0;
 	}
-	public Timer(Snake s,double n) {
+	public TimerGui(Snake s,double n) {
 		ponerACero();
 		snake=s;
 		reducir=n;

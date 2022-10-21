@@ -12,4 +12,9 @@ public class ParteCuerpoSnake extends Entity {
 	public void action(Snake serpiente) {
 		serpiente.chocar();
 	}
+	
+	public void cambiarColor(int c) {
+		textura = new ImageIcon(texturas[c]);
+	}
+	
 }
