@@ -16,7 +16,7 @@ import game.Grilla;
 import game.Logica;
 import game.Snake;
 import javax.swing.JLabel;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,7 +32,7 @@ public class Ranking extends JFrame{
 	private String ruta = "./src/score/ranking.txt";
 	private JTextField textField;
 
-	public Ranking() {
+	public Ranking(JPanel panel) {
 
 		File archivo = new File(ruta);
 		if (!archivo.exists()) {
@@ -46,7 +46,7 @@ public class Ranking extends JFrame{
 		setResizable(false);
 		setTitle("Nuevo Record");
 
-		JPanel panel = new JPanel();
+		//JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
@@ -73,7 +73,7 @@ public class Ranking extends JFrame{
 
 	public void guardarPuntuacion(String nombre) {		
 	
-		boolean gameOver = logica.getGameOver();
+		boolean gameOver = true;
 
 		FileWriter fileWriter = null;	
 		if (gameOver) {

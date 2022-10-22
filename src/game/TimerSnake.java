@@ -5,7 +5,7 @@ package game;
 public class TimerSnake extends Thread {
 
 	private Snake snake;
-
+	private boolean run=true;
 	
 	
 	public TimerSnake(Snake s) {
@@ -17,7 +17,7 @@ public class TimerSnake extends Thread {
 	
 	
 	public void run() {
-		while(true) {
+		while(run) {
 			snake.mover();
 			try {
 				sleep(400);
@@ -27,6 +27,9 @@ public class TimerSnake extends Thread {
 			}
 			
 		}
+	}
+	public void pararRun() {
+		this.run = false;
 	}
 	
 	

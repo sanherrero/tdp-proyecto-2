@@ -15,11 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import game.Bloque;
 import game.Entity;
 import game.Logica;
 import game.Snake;
 import game.TimerGui;
 import game.TimerSnake;
+import score.Ranking;
 
 public class GUI extends JFrame {
 
@@ -30,7 +32,10 @@ public class GUI extends JFrame {
 	private static JLabel lbl_tiempo;
 	private static JLabel lbl_puntos;
 	private static Logica miJuego;
-	private static TimerGui reloj;
+	private static TimerGui timerTiempo;
+	private static TimerSnake timerSerpiente;
+	private  Thread hiloMovSnake;
+	private Thread hiloTiempo;
 	private static Oyente teclado;
 
 
@@ -70,8 +75,10 @@ public GUI(Snake s) {
 
 		JPanel panel = new JPanel();
 		panel.setBounds(22, 140, 141, 288);
+		//Ranking r = new Ranking(panel);
 		panelDer.add(panel);
 		panel.setLayout(null);
+		
 
 		JLabel lblNewLabel_2 = new JLabel("TOP 5");
 
@@ -125,6 +132,19 @@ public GUI(Snake s) {
     				
     		}
     	}
+    	actualizarPuntos(serpiente.getPuntaje());
+	}
+	private void actualizarPuntos(int puntaje) {
+		lbl_puntos.setText(""+puntaje);
+		
+	}
+
+	public void actualizarSerpiente() {
+		
+		
+		tablero[serpiente.getCabeza().getX()][serpiente.getCabeza().getY()].setIcon(serpiente.getCabeza().getImagen());
+		tablero[serpiente.getCuerpo(1).getX()][serpiente.getCuerpo(1).getY()].setIcon(serpiente.getCuerpo(1).getImagen());;
+		
 	}
 
 	public void actualizar(int i, int j, ImageIcon nuevaImg){
@@ -142,24 +162,75 @@ public GUI(Snake s) {
 		return lbl_tiempo;
 	}
 
-	public void gameOver() {
+	public void gameOver(Entity [][] arreglo, Snake s) {
+		actualizarSerpiente();
+		
+		
+		
 		JOptionPane.showMessageDialog(null, "Game Over");
+		lbl_puntos.setText("0");
+		lbl_tiempo.setText("0:0:0");
+		serpiente = s;
+		for(int y =0 ; y<20;y++) {
+			for(int x =0 ; x<20;x++) {
+				actualizar(x,y, arreglo[x][y].getImagen());
+				
+				
+			}
+		}
+		actualizarPuntos(serpiente.getPuntaje());
+		stopHilos();
+		teclado.setIniciarHilos();
+		
+		
 	}
 	public void setSnake(Snake s) {
 		serpiente = s;
 		
 	}
 	
-	private void startHilos() {
-		TimerGui tg= new TimerGui(this);
-		Thread d = new Thread(tg);
-		d.start();
-		
-		TimerSnake ts= new TimerSnake(serpiente);
-		Thread ds = new Thread(ts);
-		ds.start();
-	}
 	
+	
+	
+	
+
+
+	public void siguienteNivel(Entity [][] arreglo, Snake s) {
+		actualizarSerpiente();
+		
+		
+		
+		JOptionPane.showMessageDialog(null, "Pasaste de nivel!");
+		lbl_puntos.setText("0");
+		lbl_tiempo.setText("0:0:0");
+		serpiente = s;
+		for(int y =0 ; y<20;y++) {
+			for(int x =0 ; x<20;x++) {
+				actualizar(x,y, arreglo[x][y].getImagen());
+				
+				
+			}
+		}
+		actualizarPuntos(serpiente.getPuntaje());
+		stopHilos();
+		teclado.setIniciarHilos();
+	}
+	private void startHilos() {
+		timerTiempo= new TimerGui(this);
+		hiloTiempo = new Thread(timerTiempo);
+		hiloTiempo.start();
+		
+		timerSerpiente= new TimerSnake(serpiente);
+		hiloMovSnake = new Thread(timerSerpiente);
+		hiloMovSnake.start();
+	}
+	private void stopHilos() {
+		
+		timerTiempo.pararRun();
+		timerSerpiente.pararRun();
+		teclado.setIniciarHilos();
+		
+	}
 	private class Oyente implements KeyListener{
 		boolean iniciarHilos = true;
 		public void keyTyped(KeyEvent e) {
@@ -168,21 +239,21 @@ public GUI(Snake s) {
 				startHilos();
 			}
 			if(e.getKeyChar() == 'w' || e.getExtendedKeyCode() == KeyEvent.VK_UP) {
-
+				System.out.println("anda telcado");
 				serpiente.cambiarDireccion(0);
-				System.out.println("arriba");
+				
 			}
 			if(e.getKeyChar() == 's' || e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
 				serpiente.cambiarDireccion(1);
-				System.out.println("abajo");
+				System.out.println("anda telcado");
 			}
 			if(e.getKeyChar() == 'a' || e.getExtendedKeyCode() == KeyEvent.VK_LEFT) {
 				serpiente.cambiarDireccion(2);
-				System.out.println("izquierda");
+				System.out.println("anda telcado");
 			}
 			if(e.getKeyChar() == 'd' || e.getExtendedKeyCode() == KeyEvent.VK_RIGHT) {
 				serpiente.cambiarDireccion(3);
-				System.out.println("derecha");
+				System.out.println("anda telcado");
 			}
 			
 			
@@ -201,6 +272,9 @@ public GUI(Snake s) {
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			
+		}
+		public void setIniciarHilos() {
+			iniciarHilos = true;
 		}
 		
 	}

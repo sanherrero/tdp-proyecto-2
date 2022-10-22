@@ -18,7 +18,7 @@ public class Snake {
 	
 	protected int x;
 	protected int y;
-	protected TimerGui cronometroSnake;
+	
 	protected int tiempoS;
 	protected int puntaje;
 	protected ParteCuerpoSnake cabeza;
@@ -56,7 +56,7 @@ public class Snake {
 		
 		puntaje = 0;
 		tiempoS=0;
-		tiempo();
+		
 	}
 	
 	public void aumentarTam(int cant) {
@@ -66,6 +66,13 @@ public class Snake {
 	public void sumarPuntos(int cant) {		
 		puntaje+=cant;
 		
+	}
+	
+	public void action(Pared p) {
+		gameOver();
+	}
+	public void action(ParteCuerpoSnake p) {
+		gameOver();
 	}
 	public void action(Alimento a) {
 		this.sumarPuntos(a.getPuntos());
@@ -109,9 +116,7 @@ public class Snake {
 		return cabeza;
 	}
 	
-	public void chocar() {
-		miJuego.setGameOver();
-	}
+	
 	
 	//Pasa al checkColotions las coordenadas del bloque que va a chocar.
 	
@@ -249,18 +254,14 @@ public class Snake {
 	}
 	
 	public void gameOver() {
-		miJuego.setGameOver();
+		miGrilla.gameOver();
 	}
 	
 	public int getMovimientoActual() {
 		return direccion;
 	}
 	//hilo de ejecucion del tiempo de la snake
-	private void tiempo() {
-		cronometroSnake= new TimerGui(this,0.5);
-		Thread d= new Thread(cronometroSnake);
-		d.start();	
-	}
+	
 	public int getTiempo() {
 		return tiempoS;
 	}
@@ -275,6 +276,14 @@ public class Snake {
 	public List<ParteCuerpoSnake> getCuerpo(){
 		return listaCuerpo;
 	}
+	public ParteCuerpoSnake getCuerpo(int i){
+		return listaCuerpo.get(i);
+	}
+	public ParteCuerpoSnake getCola(){
+		return listaCuerpo.get(listaCuerpo.size() -1);
+	}
+	
+	
 	
 	private void cambiarImagenCabeza() {
 		if(colorSnake == 0) {

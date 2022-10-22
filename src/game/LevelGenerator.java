@@ -20,7 +20,7 @@ public class LevelGenerator {
 		
 	}
 public Queue<Bloque> cargarNivel(int lvl,Queue<Alimento> a, Queue<PowerUp> pu, Entity[][] t) {
-	File txt_nivel = new File(niveles[4]);
+	File txt_nivel = new File(niveles[lvl]);
 	
 	List<Queue<Bloque>> posParaSnake = new ArrayList<Queue<Bloque>>();
 	

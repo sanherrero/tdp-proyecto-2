@@ -10,7 +10,7 @@ public class ParteCuerpoSnake extends Entity {
 	}
 	
 	public void action(Snake serpiente) {
-		serpiente.chocar();
+		serpiente.action(this);
 	}
 	
 	public void cambiarColor(int c) {

@@ -8,7 +8,7 @@ public class TimerGui implements Runnable {
 	private GUI gui;
 	private Snake snake;
 	int h, m, s;
-	
+	private boolean run = true;
 	
 	
 	public TimerGui(GUI g) {
@@ -31,7 +31,7 @@ public class TimerGui implements Runnable {
 	}
 	
 	public void run() {
-		while(true) {
+		while(run) {
 			tiempoTranscurrido= ((System.currentTimeMillis()-time)/1000)/reducir;
 			if(reducir==1) {
 				s=(int)tiempoTranscurrido;
@@ -52,7 +52,9 @@ public class TimerGui implements Runnable {
 			
 		}
 	}
-	
+	public void pararRun() {
+		this.run = false;
+	}
 	public double getTiempo() {
 		return tiempoTranscurrido;
 	}

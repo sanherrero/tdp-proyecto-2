@@ -10,7 +10,7 @@ public class Pared extends Entity {
 	}
 
 	public void action(Snake serpiente) {
-		serpiente.gameOver();
+		serpiente.action(this);
 	}
 	
 	protected boolean hayEspacio() {

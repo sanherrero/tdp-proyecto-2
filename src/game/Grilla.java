@@ -15,7 +15,6 @@ public class Grilla {
 		tablero = new Entity[20][20];
 		alimentos = new LinkedQueue<Alimento>();
 		powerups = new LinkedQueue<PowerUp>();
-		iniciarTablero();
 		miGenerador = new LevelGenerator();
 		Queue<Bloque> posSnake = miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
 		nivelActual++;
@@ -33,9 +32,7 @@ public class Grilla {
 		
 	}
 	
-	//Inicia un tablero "standard" con todos bloques de fondo.
-	public void iniciarTablero() {
-		}
+	
 	
 	
 	public Snake getSnake() {
@@ -43,8 +40,26 @@ public class Grilla {
 	}
 	
 	public void siguienteNivel() {
-		miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
+		Queue<Bloque> posSnake = miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
 		nivelActual++;
+		serpiente = new Snake(posSnake,miJuego,this);
+		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
+			tablero[i.getX()][i.getY()] = i;
+		}
+		agregarPickUpAleatorio();
+		miJuego.siguienteNivel();
+	}
+	
+	public void gameOver() {
+		nivelActual=0;
+		Queue<Bloque> posSnake = miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
+		nivelActual++;
+		serpiente = new Snake(posSnake,miJuego,this);
+		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
+			tablero[i.getX()][i.getY()] = i;
+		}
+		agregarPickUpAleatorio();
+		miJuego.gameOver();
 	}
 	
 	public void checkColitions() {
@@ -75,15 +90,14 @@ public class Grilla {
 	public void actualizarPosSnake() {
 		checkColitions();
 		
-		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
-			tablero[i.getX()][i.getY()] = i;
-		}
+		tablero[serpiente.getCabeza().getX()][serpiente.getCabeza().getY()] = serpiente.getCabeza();
+		tablero[serpiente.getCuerpo(1).getX()][serpiente.getCuerpo(1).getY()] = serpiente.getCuerpo(1);
+		
 		actualizar();
 	}
 	
 	public void agregarPickUpAleatorio() {
 		
-		System.out.println("agrego alimento");
 		int numRandom = (int)(Math.random()*2);
 		
 			try {
@@ -95,14 +109,19 @@ public class Grilla {
 					}
 				
 				}else {
-					if(!alimentos.isEmpty() && powerups.isEmpty())
-						buscarLugar(alimentos.dequeue());
-					if(alimentos.isEmpty() && !powerups.isEmpty())
-						buscarLugar(powerups.dequeue());
+					if(alimentos.isEmpty() && powerups.isEmpty())
+						this.siguienteNivel();
+					else {
+						if(!alimentos.isEmpty() && powerups.isEmpty())
+							buscarLugar(alimentos.dequeue());
+						if(alimentos.isEmpty() && !powerups.isEmpty())
+							buscarLugar(powerups.dequeue());
+					}
+					
 					
 				}
-				if(alimentos.isEmpty() && powerups.isEmpty())
-					terminoNivel();
+				
+					
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

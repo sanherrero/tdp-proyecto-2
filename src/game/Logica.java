@@ -16,16 +16,18 @@ public class Logica {
 		
 	}
 	
-	public boolean getGameOver() {
-		return gameOver;
-	}
 	
-	public void setGameOver() {
-		gameOver = true;
-	}
 	
-	private void siguienteNivel() {
-		tablero.siguienteNivel();
+	
+	
+	
+	public void gameOver() {
+		miGUI.gameOver(tablero.getTablero(),tablero.getSnake());
+		
+	}
+
+	public void siguienteNivel() {
+		miGUI.siguienteNivel(tablero.getTablero(),tablero.getSnake());
 	}
 
 	
