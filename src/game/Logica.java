@@ -22,9 +22,9 @@ public class Logica {
 	
 	
 	
-	public void gameOver() {
-		miGUI.gameOver(tablero.getTablero(),tablero.getSnake());
-		
+	public boolean gameOver(int score) {
+		miGUI.gameOver(tablero.getTablero(),tablero.getSnake(), score);
+		return true;
 	}
 
 	public void siguienteNivel() {
