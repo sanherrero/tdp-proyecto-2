@@ -21,8 +21,8 @@ public class Logica {
 	
 	
 	
-	public boolean gameOver() {
-		miGUI.gameOver(tablero.getTablero(),tablero.getSnake());
+	public boolean gameOver(int score) {
+		miGUI.gameOver(tablero.getTablero(),tablero.getSnake(), score);
 		return true;
 	}
 

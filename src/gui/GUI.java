@@ -21,6 +21,7 @@ import game.Logica;
 import game.Snake;
 import game.TimerGui;
 import game.TimerSnake;
+import score.Player;
 import score.Ranking;
 
 public class GUI extends JFrame {
@@ -162,12 +163,12 @@ public GUI(Snake s) {
 		return lbl_tiempo;
 	}
 
-	public void gameOver(Entity [][] arreglo, Snake s) {
+	public void gameOver(Entity [][] arreglo, Snake s, int score) {
 		actualizarSerpiente();
 		
+		//JOptionPane.showMessageDialog(null, "Game Over");
+		String userName = JOptionPane.showInputDialog(null, "You lost! Insert your name:");
 		
-		
-		JOptionPane.showMessageDialog(null, "Game Over");
 		lbl_puntos.setText("0");
 		lbl_tiempo.setText("0:0:0");
 		serpiente = s;
@@ -182,7 +183,9 @@ public GUI(Snake s) {
 		stopHilos();
 		teclado.setIniciarHilos();
 		
-		
+		Ranking rank = new Ranking();
+		rank.guardarPuntuacion(userName, Integer.toString(score));
+		JOptionPane.showMessageDialog(null, "Congratulations "+userName+".\nYou scored "+score+" points.");
 	}
 	public void setSnake(Snake s) {
 		serpiente = s;

@@ -54,12 +54,13 @@ public class Grilla {
 		nivelActual=0;
 		Queue<Bloque> posSnake = miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
 		nivelActual++;
+		int scoreAux = serpiente.getPuntaje();
 		serpiente = new Snake(posSnake,miJuego,this);
 		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
 			tablero[i.getX()][i.getY()] = i;
 		}
 		agregarPickUpAleatorio();
-		miJuego.gameOver();
+		miJuego.gameOver(scoreAux);
 	}
 	
 	public void checkColitions() {
