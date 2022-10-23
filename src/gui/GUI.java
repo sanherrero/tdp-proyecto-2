@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -31,6 +32,7 @@ public class GUI extends JFrame {
 	private Snake serpiente;
 	private static JLabel lbl_tiempo;
 	private static JLabel lbl_puntos;
+	private static JLabel lbl_nivelactual;
 	private static Logica miJuego;
 	private static TimerGui timerTiempo;
 	private static TimerSnake timerSerpiente;
@@ -63,8 +65,10 @@ public GUI(Snake s) {
 		pack();
 
 		JPanel panelIzq = new JPanel();
+		panelIzq.setForeground(Color.BLACK);
 		panelIzq.setBackground(Color.BLACK);
 		panelIzq.setBounds(0, 0, width, height);
+		
 		getContentPane().add(panelIzq);
 		panelIzq.setLayout(new GridLayout(20, 20, 0, 0));
 
@@ -113,6 +117,14 @@ public GUI(Snake s) {
 		JLabel lblNewLabel_1 = new JLabel("PUNTOS");
 		lblNewLabel_1.setBounds(83, 51, 64, 14);
 		panelDer.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("NIVEL ACTUAL");
+		lblNewLabel_3.setBounds(57, 86, 90, 14);
+		panelDer.add(lblNewLabel_3);
+		
+		lbl_nivelactual = new JLabel("New label");
+		lbl_nivelactual.setBounds(83, 103, 46, 14);
+		panelDer.add(lbl_nivelactual);
 		
 		teclado = new Oyente();
 		
@@ -170,6 +182,8 @@ public GUI(Snake s) {
 		JOptionPane.showMessageDialog(null, "Game Over");
 		lbl_puntos.setText("0");
 		lbl_tiempo.setText("0:0:0");
+		lbl_nivelactual.setText("1");
+		
 		serpiente = s;
 		for(int y =0 ; y<20;y++) {
 			for(int x =0 ; x<20;x++) {
@@ -192,10 +206,12 @@ public GUI(Snake s) {
 	
 	
 	
-	
+	public void setNivelActual(int i) {
+		lbl_nivelactual.setText(""+i);
+	}
 
 
-	public void siguienteNivel(Entity [][] arreglo, Snake s) {
+	public void siguienteNivel(Entity [][] arreglo, Snake s,int nivel) {
 		actualizarSerpiente();
 		
 		
@@ -203,6 +219,7 @@ public GUI(Snake s) {
 		JOptionPane.showMessageDialog(null, "Pasaste de nivel!");
 		lbl_puntos.setText("0");
 		lbl_tiempo.setText("0:0:0");
+		lbl_nivelactual.setText(""+nivel);
 		serpiente = s;
 		for(int y =0 ; y<20;y++) {
 			for(int x =0 ; x<20;x++) {
@@ -278,4 +295,5 @@ public GUI(Snake s) {
 		}
 		
 	}
+	
 }

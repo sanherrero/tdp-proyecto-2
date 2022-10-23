@@ -70,6 +70,10 @@ public class Grilla {
 		tablero[posXCabeza][posYCabeza].action(serpiente);
 	}
 	
+	public int getNivel() {
+		return nivelActual ;
+	}
+	
 	public Entity[][] getTablero(){
 		return tablero;
 		

@@ -11,6 +11,7 @@ public class Logica {
 		tablero = new Grilla(this);
 		
 		miGUI = new GUI(tablero.getSnake());
+		miGUI.setNivelActual(tablero.getNivel());
 		miGUI.setVisible(true);
 		
 		
@@ -27,7 +28,7 @@ public class Logica {
 	}
 
 	public void siguienteNivel() {
-		miGUI.siguienteNivel(tablero.getTablero(),tablero.getSnake());
+		miGUI.siguienteNivel(tablero.getTablero(),tablero.getSnake(),tablero.getNivel());
 	}
 
 	
