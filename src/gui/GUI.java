@@ -79,9 +79,9 @@ public GUI(Snake s) {
 		panelDer.add(panel);
 		panel.setLayout(null);
 		
+		
 
 		JLabel lblNewLabel_2 = new JLabel("TOP 5");
-
 		lblNewLabel_2.setBounds(8, 20, 125, 25);
 		panel.add(lblNewLabel_2);
 

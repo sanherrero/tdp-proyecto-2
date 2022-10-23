@@ -28,12 +28,13 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class Ranking extends JFrame{
 	//private Grilla grilla;
-	private Logica logica;
+
+	//private Logica logica;
 	private String ruta = "./src/score/ranking.txt";
-	private JTextField textField;
 
-	public Ranking(JPanel panel) {
+	
 
+	public Ranking() {
 		File archivo = new File(ruta);
 		if (!archivo.exists()) {
 			try {
@@ -42,64 +43,41 @@ public class Ranking extends JFrame{
 				e.printStackTrace();
 			}
 		}
-
-		setResizable(false);
-		setTitle("Nuevo Record");
-
-		//JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("Ingrese nombre:");
-		lblNewLabel.setBounds(26, 14, 129, 59);
-		panel.add(lblNewLabel);
-
-		textField = new JTextField();
-		textField.setBounds(115, 32, 207, 23);
-		panel.add(textField);
-		textField.setColumns(10);
-
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(148, 75, 77, 19);
-		panel.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String nombre = textField.getText();
-				guardarPuntuacion(nombre);
-			}
-		});
+		
 
 	}
 
-	public void guardarPuntuacion(String nombre) {		
-	
-		boolean gameOver = true;
+	public void guardarPuntuacion(String nombre, String puntos) {		
+		boolean archivo = false;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(ruta)); 
+			if (br.readLine() == null)
+			    archivo = true;
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		FileWriter fileWriter = null;	
-		if (gameOver) {
-
-
-			try {
-				fileWriter = new FileWriter(ruta, true);
-				BufferedWriter bfwriter = new BufferedWriter(fileWriter);
+		FileWriter fileWriter = null;		
+		
+		try {
+			fileWriter = new FileWriter(ruta, true);
+			BufferedWriter bfwriter = new BufferedWriter(fileWriter);
+			if (!archivo)
 				bfwriter.newLine();
-
-				bfwriter.write(logica.getPuntos()+" "+nombre);
-				bfwriter.close();
-				puntuaciones();
-
-			} catch(IOException e) {
-				e.printStackTrace();
-			} finally {
-				if (fileWriter != null) {
-					try {
-						fileWriter.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+			bfwriter.write(puntos+" "+nombre);
+			bfwriter.close();
+		} catch(IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (fileWriter != null) {
+				try {
+					fileWriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
-		} 
+		}
 	}
 
 	@SuppressWarnings("unused")
@@ -124,7 +102,7 @@ public class Ranking extends JFrame{
 				ranking.add(p);
 			}
 			sortRanking(ranking);
-			
+
 			toReturn = new String [size][2];
 			for (int i = 0; i<size; i++) {
 				parts = ranking.get(i).toString().split(" ");
@@ -143,12 +121,11 @@ public class Ranking extends JFrame{
 		Player pTemp = null;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size - i -1; j++)
-			if (arreglo.get(j).getPuntaje() > arreglo.get(j+1).getPuntaje()) {
-				pTemp = arreglo.get(j);
-				arreglo.set(j, arreglo.get(j+1));
-				arreglo.set(j+1, pTemp);
-			}
+				if (arreglo.get(j).getPuntaje() > arreglo.get(j+1).getPuntaje()) {
+					pTemp = arreglo.get(j);
+					arreglo.set(j, arreglo.get(j+1));
+					arreglo.set(j+1, pTemp);
+				}
 		}
 	}	
-
 }

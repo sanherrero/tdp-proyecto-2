@@ -21,9 +21,9 @@ public class Logica {
 	
 	
 	
-	public void gameOver() {
+	public boolean gameOver() {
 		miGUI.gameOver(tablero.getTablero(),tablero.getSnake());
-		
+		return true;
 	}
 
 	public void siguienteNivel() {
