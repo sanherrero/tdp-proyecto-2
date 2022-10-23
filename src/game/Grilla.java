@@ -40,17 +40,24 @@ public class Grilla {
 	}
 	
 	public void siguienteNivel() {
-		Queue<Bloque> posSnake = miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
-		nivelActual++;
-		serpiente = new Snake(posSnake,miJuego,this);
-		for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
-			tablero[i.getX()][i.getY()] = i;
+		if(nivelActual == 5) {
+			gameOver(true);
 		}
-		agregarPickUpAleatorio();
-		miJuego.siguienteNivel();
+		else {
+			Queue<Bloque> posSnake = miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
+			nivelActual++;
+			serpiente = new Snake(posSnake,miJuego,this);
+			for(ParteCuerpoSnake i : serpiente.getCuerpo()) {
+				tablero[i.getX()][i.getY()] = i;
+			}
+			agregarPickUpAleatorio();
+			miJuego.siguienteNivel();
+		}
+		
 	}
 	
-	public void gameOver() {
+	
+	public void gameOver(boolean gane) {
 		nivelActual=0;
 		Queue<Bloque> posSnake = miGenerador.cargarNivel(nivelActual,alimentos, powerups, tablero);
 		nivelActual++;
@@ -60,7 +67,7 @@ public class Grilla {
 			tablero[i.getX()][i.getY()] = i;
 		}
 		agregarPickUpAleatorio();
-		miJuego.gameOver(scoreAux);
+		miJuego.gameOver(gane,scoreAux);
 	}
 	
 	public void checkColitions() {

@@ -254,7 +254,7 @@ public class Snake {
 	}
 	
 	public void gameOver() {
-		miGrilla.gameOver();
+		miGrilla.gameOver(false);
 	}
 	
 	public int getMovimientoActual() {

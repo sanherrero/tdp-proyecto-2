@@ -175,11 +175,15 @@ public GUI(Snake s) {
 		return lbl_tiempo;
 	}
 
-	public void gameOver(Entity [][] arreglo, Snake s, int score) {
+	public void gameOver(boolean gane,Entity [][] arreglo, Snake s, int score) {
 		actualizarSerpiente();
+		String userName;
+		if(gane) {
+			userName = JOptionPane.showInputDialog(null, "You win! Insert your name:");
+		}else {
+			userName = JOptionPane.showInputDialog(null, "You lost! Insert your name:");
+		}
 		
-		//JOptionPane.showMessageDialog(null, "Game Over");
-		String userName = JOptionPane.showInputDialog(null, "You lost! Insert your name:");
 		
 		lbl_puntos.setText("0");
 		lbl_tiempo.setText("0:0:0");
