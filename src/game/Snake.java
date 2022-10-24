@@ -75,18 +75,20 @@ public class Snake {
 		gameOver();
 	}
 	public void action(Alimento a) {
-		this.sumarPuntos(a.getPuntos());
+		miJuego.getSumaPuntos(a.getPuntos());
 		this.aumentarTam(a.getIncreaseSize());
 		miGrilla.agregarPickUpAleatorio();
 		
 	}
 	public void action(PowerUp0 p) {
+		miJuego.getSumaPuntos(p.getPuntos());
 		this.sumarPuntos(p.getPuntos());
 		this.aumentarTam(p.getIncreaseSize());
 		this.cambiarRosa();
 		miGrilla.agregarPickUpAleatorio();
 		
 	}public void action(PowerUp1 p) {
+		miJuego.getSumaPuntos(p.getPuntos());
 		this.sumarPuntos(p.getPuntos());
 		this.aumentarTam(p.getIncreaseSize());
 		this.cambiarRojo(); 
@@ -94,6 +96,7 @@ public class Snake {
 		
 	}
 	public void action(PowerUp2 p) {
+		miJuego.getSumaPuntos(p.getPuntos());
 		this.sumarPuntos(p.getPuntos());
 		this.aumentarTam(p.getIncreaseSize());
 		this.cambiarVerde();

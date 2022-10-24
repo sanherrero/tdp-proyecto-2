@@ -136,7 +136,7 @@ public GUI(Snake s) {
 		
 	}
 	
-	public void actualizar(Entity[][] arreglo) {        
+	public void actualizar(Entity[][] arreglo, int puntos) {        
     	for(int y =0 ; y<20;y++) {
     			for(int x =0 ; x<20;x++) {
     				actualizar(x,y, arreglo[x][y].getImagen());
@@ -144,8 +144,11 @@ public GUI(Snake s) {
     				
     		}
     	}
-    	actualizarPuntos(serpiente.getPuntaje());
+    	
+  
+    	actualizarPuntos(puntos);
 	}
+
 	private void actualizarPuntos(int puntaje) {
 		lbl_puntos.setText(""+puntaje);
 		
@@ -184,7 +187,7 @@ public GUI(Snake s) {
 		}
 		
 		
-		lbl_puntos.setText("0");
+	
 		lbl_tiempo.setText("0:0:0");
 		lbl_nivelactual.setText("1");
 		
@@ -209,9 +212,7 @@ public GUI(Snake s) {
 		
 	}
 	
-	
-	
-	
+
 	public void setNivelActual(int i) {
 		lbl_nivelactual.setText(""+i);
 	}
@@ -223,7 +224,7 @@ public GUI(Snake s) {
 		
 		
 		JOptionPane.showMessageDialog(null, "Pasaste de nivel!");
-
+	
 		lbl_tiempo.setText("0:0:0");
 		lbl_nivelactual.setText(""+nivel);
 		serpiente = s;
@@ -234,7 +235,7 @@ public GUI(Snake s) {
 				
 			}
 		}
-		actualizarPuntos(serpiente.getPuntaje());
+		//actualizarPuntos(p);
 		stopHilos();
 		teclado.setIniciarHilos();
 	}
@@ -262,21 +263,21 @@ public GUI(Snake s) {
 				startHilos();
 			}
 			if(e.getKeyChar() == 'w' || e.getExtendedKeyCode() == KeyEvent.VK_UP) {
-				
+				System.out.println("anda telcado");
 				serpiente.cambiarDireccion(0);
 				
 			}
 			if(e.getKeyChar() == 's' || e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
 				serpiente.cambiarDireccion(1);
-				
+				System.out.println("anda telcado");
 			}
 			if(e.getKeyChar() == 'a' || e.getExtendedKeyCode() == KeyEvent.VK_LEFT) {
 				serpiente.cambiarDireccion(2);
-				
+				System.out.println("anda telcado");
 			}
 			if(e.getKeyChar() == 'd' || e.getExtendedKeyCode() == KeyEvent.VK_RIGHT) {
 				serpiente.cambiarDireccion(3);
-				
+				System.out.println("anda telcado");
 			}
 			
 			
