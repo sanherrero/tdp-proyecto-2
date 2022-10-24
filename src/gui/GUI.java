@@ -34,7 +34,6 @@ public class GUI extends JFrame {
 	private static JLabel lbl_tiempo;
 	private static JLabel lbl_puntos;
 	private static JLabel lbl_nivelactual;
-	private static Logica miJuego;
 	private static TimerGui timerTiempo;
 	private static TimerSnake timerSerpiente;
 	private  Thread hiloMovSnake;
@@ -224,7 +223,7 @@ public GUI(Snake s) {
 		
 		
 		JOptionPane.showMessageDialog(null, "Pasaste de nivel!");
-		lbl_puntos.setText("0");
+
 		lbl_tiempo.setText("0:0:0");
 		lbl_nivelactual.setText(""+nivel);
 		serpiente = s;
@@ -263,21 +262,21 @@ public GUI(Snake s) {
 				startHilos();
 			}
 			if(e.getKeyChar() == 'w' || e.getExtendedKeyCode() == KeyEvent.VK_UP) {
-				System.out.println("anda telcado");
+				
 				serpiente.cambiarDireccion(0);
 				
 			}
 			if(e.getKeyChar() == 's' || e.getExtendedKeyCode() == KeyEvent.VK_DOWN) {
 				serpiente.cambiarDireccion(1);
-				System.out.println("anda telcado");
+				
 			}
 			if(e.getKeyChar() == 'a' || e.getExtendedKeyCode() == KeyEvent.VK_LEFT) {
 				serpiente.cambiarDireccion(2);
-				System.out.println("anda telcado");
+				
 			}
 			if(e.getKeyChar() == 'd' || e.getExtendedKeyCode() == KeyEvent.VK_RIGHT) {
 				serpiente.cambiarDireccion(3);
-				System.out.println("anda telcado");
+				
 			}
 			
 			

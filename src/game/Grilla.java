@@ -87,9 +87,7 @@ public class Grilla {
 		
 	}
 	
-	private void buscarPosAleatoriaParaSnake() {
-		
-	}
+	
 	
 	public void actualizar() {
 		miJuego.actualizar();

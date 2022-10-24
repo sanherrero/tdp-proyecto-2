@@ -6,6 +6,7 @@ public class Logica {
 	protected boolean gameOver = false;
 	protected GUI miGUI;
 	protected Grilla tablero;
+	protected int puntos;
 	
 	public Logica() {
 		tablero = new Grilla(this);
@@ -37,11 +38,15 @@ public class Logica {
 	}
 	
 	public int getPuntos() {
-		return tablero.getSnake().getPuntaje();
+		return puntos;
 	}
 	
 	public Grilla getGrilla() {
 		return tablero;
+	}
+	
+	public void sumarPuntos(int p) {
+		puntos = puntos +p;
 	}
 	
 }
