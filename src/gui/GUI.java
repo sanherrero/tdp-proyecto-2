@@ -34,7 +34,6 @@ public class GUI extends JFrame {
 	private static JLabel lbl_tiempo;
 	private static JLabel lbl_puntos;
 	private static JLabel lbl_nivelactual;
-	private static Logica miJuego;
 	private static TimerGui timerTiempo;
 	private static TimerSnake timerSerpiente;
 	private  Thread hiloMovSnake;
@@ -137,7 +136,7 @@ public GUI(Snake s) {
 		
 	}
 	
-	public void actualizar(Entity[][] arreglo) {        
+	public void actualizar(Entity[][] arreglo, int puntos) {        
     	for(int y =0 ; y<20;y++) {
     			for(int x =0 ; x<20;x++) {
     				actualizar(x,y, arreglo[x][y].getImagen());
@@ -145,8 +144,11 @@ public GUI(Snake s) {
     				
     		}
     	}
-    	actualizarPuntos(serpiente.getPuntaje());
+    	
+  
+    	actualizarPuntos(puntos);
 	}
+
 	private void actualizarPuntos(int puntaje) {
 		lbl_puntos.setText(""+puntaje);
 		
@@ -185,7 +187,7 @@ public GUI(Snake s) {
 		}
 		
 		
-		lbl_puntos.setText("0");
+	
 		lbl_tiempo.setText("0:0:0");
 		lbl_nivelactual.setText("1");
 		
@@ -210,9 +212,7 @@ public GUI(Snake s) {
 		
 	}
 	
-	
-	
-	
+
 	public void setNivelActual(int i) {
 		lbl_nivelactual.setText(""+i);
 	}
@@ -224,7 +224,7 @@ public GUI(Snake s) {
 		
 		
 		JOptionPane.showMessageDialog(null, "Pasaste de nivel!");
-		lbl_puntos.setText("0");
+	
 		lbl_tiempo.setText("0:0:0");
 		lbl_nivelactual.setText(""+nivel);
 		serpiente = s;
@@ -235,7 +235,7 @@ public GUI(Snake s) {
 				
 			}
 		}
-		actualizarPuntos(serpiente.getPuntaje());
+		//actualizarPuntos(p);
 		stopHilos();
 		teclado.setIniciarHilos();
 	}

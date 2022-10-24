@@ -6,6 +6,7 @@ public class Logica {
 	protected boolean gameOver = false;
 	protected GUI miGUI;
 	protected Grilla tablero;
+	protected int puntos;
 	
 	public Logica() {
 		tablero = new Grilla(this);
@@ -22,8 +23,9 @@ public class Logica {
 	
 	
 	
-	public boolean gameOver(boolean gane,int score) {
-		miGUI.gameOver(gane,tablero.getTablero(),tablero.getSnake(), score);
+	public boolean gameOver(boolean gane) {
+		miGUI.gameOver(gane,tablero.getTablero(),tablero.getSnake(), puntos);
+		puntos = 0;
 		return true;
 	}
 
@@ -33,11 +35,17 @@ public class Logica {
 
 	
 	public void actualizar() {
-		miGUI.actualizar(tablero.getTablero());
+		miGUI.actualizar(tablero.getTablero(), puntos);
 	}
 	
 	public int getPuntos() {
+
 		return tablero.getSnake().getPuntaje();
+	}
+	
+	public int getSumaPuntos(int p) {
+		puntos += p;
+		return puntos;
 	}
 	
 	public Grilla getGrilla() {
