@@ -12,9 +12,7 @@ import java.util.Scanner;
 
 import javax.swing.JFrame;
 
-import game.Grilla;
-import game.Logica;
-import game.Snake;
+
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
@@ -26,15 +24,17 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class Ranking extends JFrame{
+public class Ranking {
 	//private Grilla grilla;
 
 	//private Logica logica;
 	private String ruta = "./src/score/ranking.txt";
+	private JLabel[] labels;
 
 	
 
-	public Ranking() {
+	public Ranking(JLabel[] l) {
+		labels =l;
 		File archivo = new File(ruta);
 		if (!archivo.exists()) {
 			try {
@@ -43,10 +43,22 @@ public class Ranking extends JFrame{
 				e.printStackTrace();
 			}
 		}
-		
+		actualizarLabels();
 
 	}
-
+	
+	private void actualizarLabels() {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(ruta));
+			for(int i =0; i<5;i++) {
+				String lineaActual = br.readLine();
+				labels[i].setText(lineaActual);
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		} 
+	}
 	public void guardarPuntuacion(String nombre, String puntos) {		
 		boolean archivo = false;
 		try {
@@ -78,54 +90,78 @@ public class Ranking extends JFrame{
 				}
 			}
 		}
+		
+		getPuntuacion();
+		actualizarLabels();
 	}
 
 	@SuppressWarnings("unused")
-	private String[][] puntuaciones(){
+	private void getPuntuacion(){
 		File archivo = new File(ruta);
 		Scanner scanner;
 		String[][] toReturn = null;
 		String parts[];
 		String nombre;
 		int puntaje = 0;
-		Player p = new Player(0, null);
+		Player p ;
 		ArrayList<Player> ranking = new ArrayList<Player>();
 		int size = ranking.size();
 		try {
 			scanner = new Scanner(archivo);
 			while(scanner.hasNextLine()) {
+				
+				
 				parts = scanner.nextLine().split(" ");
 				puntaje = Integer.parseInt(parts[0]);
 				nombre = parts[1];
-				p.setPuntaje(puntaje);
-				p.setNombre(nombre);
+				p = new Player(puntaje,nombre);
+				
+				
 				ranking.add(p);
+				System.out.println("agregue"+p.getNombre()+" "+p.getPuntaje());
+			}
+			System.out.println("imprimo lista no ordenada");
+			for(Player i: ranking) {
+				System.out.println("Pos"+i+" "+i.getNombre()+" "+i.getPuntaje());
 			}
 			sortRanking(ranking);
-
-			toReturn = new String [size][2];
-			for (int i = 0; i<size; i++) {
-				parts = ranking.get(i).toString().split(" ");
-				toReturn[i][0] = parts[0];
-				toReturn[i][1] = parts[1];
-			}
+			
 			scanner.close();
-		} catch (FileNotFoundException e) {
+			
+			archivo.delete();
+			System.out.println(archivo);
+			archivo.createNewFile();
+			
+			FileWriter fileWriter = new FileWriter(ruta, true);
+			BufferedWriter bfwriter = new BufferedWriter(fileWriter);
+			for(Player i : ranking) {
+				
+				
+			
+				bfwriter.newLine();
+				bfwriter.write(i.getPuntaje()+" "+i.getNombre());
+				
+			}
+			bfwriter.close();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return toReturn;
+		
+		
 
 	}
-	private void sortRanking(ArrayList<Player> arreglo) {
-		int size = arreglo.size();
-		Player pTemp = null;
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size - i -1; j++)
-				if (arreglo.get(j).getPuntaje() > arreglo.get(j+1).getPuntaje()) {
-					pTemp = arreglo.get(j);
-					arreglo.set(j, arreglo.get(j+1));
-					arreglo.set(j+1, pTemp);
+	private void sortRanking(ArrayList<Player> lista) {
+		int size = lista.size();
+		
+		for(int i =0; i<size;i++) {
+			for(int j =1; j<size;j++) {
+				if(lista.get(i).getPuntaje()>lista.get(j).getPuntaje()) {
+					Player playerAux = lista.get(i);
+					lista.set(i,lista.get(j));
+					lista.set(j, playerAux);
 				}
+			}
 		}
 	}	
 }

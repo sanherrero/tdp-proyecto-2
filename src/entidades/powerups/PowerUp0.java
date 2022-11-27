@@ -1,0 +1,18 @@
+package entidades.powerups;
+
+import entidades.Entity;
+import logica.Snake;
+
+public class PowerUp0 extends PowerUp {
+
+	public PowerUp0(int x, int y) {
+		super(x, y, "src/textures/powerups/powerup_0.png");
+		System.out.println("creo pu0");
+		puntos = 50;
+	}
+
+	public void accept(Snake serpiente) {
+		serpiente.visit(this);
+	}
+
+}

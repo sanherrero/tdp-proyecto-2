@@ -1,0 +1,32 @@
+package entidades.alimentos;
+
+import entidades.Entity;
+import logica.Snake;
+
+public abstract class Alimento extends Entity {
+
+	protected int puntos;
+	protected int increaseSize;
+	
+	public Alimento(int x,int y,String img) {
+		super(x,y,img);
+	}
+	
+	
+	
+	public boolean hayEspacio() {
+		return false;
+	}
+	public int getPuntos() {
+		return puntos;
+	}
+	public int getIncreaseSize() {
+		return increaseSize;
+	}
+	
+	public void accept(Snake serpiente) {
+		serpiente.visit(this);
+	}
+	
+
+}
