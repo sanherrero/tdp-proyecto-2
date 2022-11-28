@@ -1,10 +1,11 @@
 package logica;
 
 import gui.GUI;
+import score.Ranking;
 
 public class Logica {
 	protected boolean gameOver = false;
-
+	protected Ranking ranking;
 	protected Grilla tablero;
 	protected int puntos;
 	private static Logica miLogica;
@@ -17,9 +18,10 @@ public class Logica {
 
 	private Logica() {
 		tablero = new Grilla(this);
-
+		ranking = new Ranking();
 		GUI.getGUI().setNivelActual(0);
 		GUI.getGUI().setVisible(true);
+		
 
 	}
 
@@ -54,6 +56,10 @@ public class Logica {
 	public void cambiarDireccionSnake(int i) {
 		tablero.getSnake().cambiarDireccion(i);
 		
+	}
+	
+	public String[] getTopFive() {
+		return ranking.getTopFive();
 	}
 
 }

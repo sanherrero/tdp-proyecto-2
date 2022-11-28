@@ -7,34 +7,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import javax.swing.JFrame;
-
-
-import javax.swing.JLabel;
-
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JTextField;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
-@SuppressWarnings("serial")
 public class Ranking {
-	//private Grilla grilla;
 
-	//private Logica logica;
-	private String ruta = "./src/score/ranking.txt";
-	private JLabel[] labels;
-
-	
-
-	public Ranking(JLabel[] l) {
-		labels =l;
+	private String ruta ="src/score/archivo.txt";
+	private String rutaAux = "src/score/archivoAux.txt";
+	public Ranking() {
 		File archivo = new File(ruta);
 		if (!archivo.exists()) {
 			try {
@@ -43,125 +23,131 @@ public class Ranking {
 				e.printStackTrace();
 			}
 		}
-		actualizarLabels();
+		
 
-	}
-	
-	private void actualizarLabels() {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(ruta));
-			for(int i =0; i<5;i++) {
-				String lineaActual = br.readLine();
-				labels[i].setText(lineaActual);
-			}
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		} 
-	}
-	public void guardarPuntuacion(String nombre, String puntos) {		
+	};
+
+	public void escribirArchivo(int puntos, String tiempo, String nombre) {
 		boolean archivo = false;
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(ruta)); 
-			if (br.readLine() == null)
-			    archivo = true;
+			BufferedReader br = new BufferedReader(new FileReader(ruta));
+			archivo = br.readLine()==null;
 			br.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		FileWriter fileWriter = null;
+		try {
+			fileWriter = new FileWriter(ruta, true);
+
+			BufferedWriter bfwriter = new BufferedWriter(fileWriter);
+			if (!archivo) 
+				bfwriter.newLine();
+
+
+			bfwriter.write(puntos+" "+tiempo+" "+nombre);
+			bfwriter.close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		FileWriter fileWriter = null;		
 		
+
+	}
+
+	public void ordenarLista() {
+
+		ArrayList<Jugador> listaJugadores = new ArrayList<Jugador>();
 		try {
-			fileWriter = new FileWriter(ruta, true);
-			BufferedWriter bfwriter = new BufferedWriter(fileWriter);
-			if (!archivo)
-				bfwriter.newLine();
-			bfwriter.write(puntos+" "+nombre);
-			bfwriter.close();
-		} catch(IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (fileWriter != null) {
-				try {
-					fileWriter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+			File archivo = new File(ruta);
+			BufferedReader br = new BufferedReader(new FileReader(ruta));
+			String string;
+
+			while ((string = br.readLine()) != null) {
+				//divido cada linea del archivo en puntos, tiempo y nombre. Parseo puntos y tiempo a enteros
+				System.out.println(string+"<<");
+				String[] dividoString = string.split(" ");
+				String puntos = dividoString[0]; 
+				String tiempo = dividoString[1]; 
+				String nombre = dividoString[2];
+				String[] parts = tiempo.split(":");
+				String tiempoParte1 = parts[0];
+				String tiempoParte2 = parts[1];
+				String tiempoSinDosPuntos = tiempoParte1+tiempoParte2;
+				int time = Math.abs(Integer.parseInt(tiempoSinDosPuntos)-100000);
+				String puntajeParaOrdenar = puntos+""+time; //convierto tiempo y puntos a un solo numero para poder ordenar
+				int puntosOrdenar = Integer.parseInt(puntajeParaOrdenar);//puntos con los que voy a ordenar la lista
+				int puntosJugador = Integer.parseInt(puntos); //puntos que voy a pasar al archivo
+				Jugador j = new Jugador(puntosOrdenar, puntosJugador, tiempo, nombre);
+				System.out.println(""+j.getPuntos());
+				listaJugadores.add(j);
+			}
+				sortRanking(listaJugadores);
+				br.close();
+				archivo.delete();
+				archivo.createNewFile();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+			escribirArchivoSalida(listaJugadores);
+
+		}
+		private void escribirArchivoSalida(ArrayList<Jugador>lj) {
+
+			FileWriter fileWriter = null;
+			try {
+				fileWriter = new FileWriter(ruta, true);
+				PrintWriter pw = new PrintWriter(fileWriter);
+				int puntos = 0;
+				String tiempo = "";
+				String nombre = "";
+				 for (int i = 0; i <lj.size(); i++) {
+					 
+					puntos = lj.get(i).getPuntosJugador();
+					tiempo = lj.get(i).getTiempo();
+					nombre = lj.get(i).getNombre();
+					pw.print(puntos+" "+tiempo+" "+nombre);
+					if(i != lj.size()-1)
+						pw.println("");
+				}
+				pw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		private void sortRanking(ArrayList<Jugador> listaJugadores) {
+			int size = listaJugadores.size();
+			Jugador temp = null;
+			//ordeno por puntos
+			for (int i = 0; i<size;i++) {
+				for (int j = 1; j < size-i; j++) {
+					if (listaJugadores.get(j-1).getPuntos() < listaJugadores.get(j).getPuntos()) {
+						temp = listaJugadores.get(j-1);
+						listaJugadores.set(j-1, listaJugadores.get(j));
+						listaJugadores.set(j, temp);
+					}
 				}
 			}
 		}
 		
-		getPuntuacion();
-		actualizarLabels();
-	}
-
-	@SuppressWarnings("unused")
-	private void getPuntuacion(){
-		File archivo = new File(ruta);
-		Scanner scanner;
-		String[][] toReturn = null;
-		String parts[];
-		String nombre;
-		int puntaje = 0;
-		Player p ;
-		ArrayList<Player> ranking = new ArrayList<Player>();
-		int size = ranking.size();
-		try {
-			scanner = new Scanner(archivo);
-			while(scanner.hasNextLine()) {
-				
-				
-				parts = scanner.nextLine().split(" ");
-				puntaje = Integer.parseInt(parts[0]);
-				nombre = parts[1];
-				p = new Player(puntaje,nombre);
-				
-				
-				ranking.add(p);
-				System.out.println("agregue"+p.getNombre()+" "+p.getPuntaje());
-			}
-			System.out.println("imprimo lista no ordenada");
-			for(Player i: ranking) {
-				System.out.println("Pos"+i+" "+i.getNombre()+" "+i.getPuntaje());
-			}
-			sortRanking(ranking);
-			
-			scanner.close();
-			
-			archivo.delete();
-			System.out.println(archivo);
-			archivo.createNewFile();
-			
-			FileWriter fileWriter = new FileWriter(ruta, true);
-			BufferedWriter bfwriter = new BufferedWriter(fileWriter);
-			for(Player i : ranking) {
-				
-				
-			
-				bfwriter.newLine();
-				bfwriter.write(i.getPuntaje()+" "+i.getNombre());
-				
-			}
-			bfwriter.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-
-	}
-	private void sortRanking(ArrayList<Player> lista) {
-		int size = lista.size();
-		
-		for(int i =0; i<size;i++) {
-			for(int j =1; j<size;j++) {
-				if(lista.get(i).getPuntaje()>lista.get(j).getPuntaje()) {
-					Player playerAux = lista.get(i);
-					lista.set(i,lista.get(j));
-					lista.set(j, playerAux);
+		public String[] getTopFive() {
+			String[] salida = new String [5];
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(ruta));
+				String lineaTxt = br.readLine();
+				for(int i =0; i<5 && lineaTxt!=null;i++) {
+					salida[i] = lineaTxt;
+					lineaTxt = br.readLine();
 				}
+				
+				br.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			return salida;
 		}
-	}	
-}
+	}

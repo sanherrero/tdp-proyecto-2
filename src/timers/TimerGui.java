@@ -56,8 +56,12 @@ public class TimerGui implements Runnable {
 	public void pararRun() {
 		this.run = false;
 	}
-	public double getTiempo() {
-		return tiempoTranscurrido;
+	public String getTiempo() {
+		String salida="";
+		if(m<10) {
+			salida = ("0"+m+":"+s);
+		}
+		return salida;
 	}
 	
 }

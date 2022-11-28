@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import logica.Logica;
-import score.Player;
+import score.Jugador;
 import score.Ranking;
 import timers.*;
 
@@ -38,6 +38,7 @@ public class GUI extends JFrame {
 	private Thread hiloTiempo;
 	private static Oyente teclado;
 	private Ranking ranking;
+
 	protected static JLabel lbltexto_top1, lbltexto_top2, lbltexto_top3, lbltexto_top4, lbltexto_top5;
 	private static GUI miGUI;
 	private static JPanel panelIzq,panel,panelDer;
@@ -71,8 +72,10 @@ public class GUI extends JFrame {
 
 		iniciarPaneles();
 		iniciarLabels();
-		
+		setLblTop5();
 		iniciarTableros();
+		
+		
 		teclado = new Oyente();
 
 		this.addKeyListener(teclado);
@@ -122,26 +125,36 @@ public class GUI extends JFrame {
 		JLabel lblNewLabel_7 = new JLabel("TOP 4");
 		lblNewLabel_7.setBounds(6, 119, 46, 14);
 		panel.add(lblNewLabel_7);
+		
+		
+		
 
 		lbltexto_top1 = new JLabel("New label");
 		lbltexto_top1.setBounds(47, 45, 107, 14);
+		
 		panel.add(lbltexto_top1);
 
 		lbltexto_top2 = new JLabel("New label");
 		lbltexto_top2.setBounds(47, 70, 107, 14);
+		
 		panel.add(lbltexto_top2);
 
 		lbltexto_top3 = new JLabel("New label");
 		lbltexto_top3.setBounds(47, 95, 107, 14);
+		
 		panel.add(lbltexto_top3);
 
 		lbltexto_top4 = new JLabel("New label");
 		lbltexto_top4.setBounds(47, 119, 107, 14);
+		
 		panel.add(lbltexto_top4);
 
 		lbltexto_top5 = new JLabel("New label");
 		lbltexto_top5.setBounds(47, 137, 107, 14);
+		
 		panel.add(lbltexto_top5);
+		
+		
 
 		JLabel lblNewLabel_8 = new JLabel("PUNTOS");
 		lblNewLabel_8.setBounds(47, 20, 51, 14);
@@ -151,8 +164,7 @@ public class GUI extends JFrame {
 		lblNewLabel_9.setBounds(108, 20, 56, 14);
 		panel.add(lblNewLabel_9);
 
-		ranking = new Ranking(
-				new JLabel[] { lbltexto_top1, lbltexto_top2, lbltexto_top3, lbltexto_top4, lbltexto_top5 });
+		
 
 		
 		lbl_tiempo = new JLabel();
@@ -199,6 +211,20 @@ public class GUI extends JFrame {
 		}
 		
 		
+		
+	}
+	
+	public void setLblTop5() {
+		ranking = new Ranking();
+		String[] top5 =ranking.getTopFive();
+		
+		System.out.println(top5[0]);
+		lbltexto_top1.setText(top5[0]);
+		lbltexto_top2.setText(top5[1]);
+		lbltexto_top3.setText(top5[2]);
+		lbltexto_top4.setText(top5[3]);
+		lbltexto_top5.setText(top5[4]);
+		repaint();
 	}
 
 	private void actualizarPuntos(int puntaje) {
@@ -235,6 +261,9 @@ public class GUI extends JFrame {
 		actualizarPuntos(Logica.getLogica().getPuntos());
 		stopHilos();
 		teclado.setIniciarHilos();
+		ranking.escribirArchivo(score, timerTiempo.getTiempo(), userName);
+		ranking.ordenarLista();
+		setLblTop5();
 		JOptionPane.showMessageDialog(null, "Congratulations " + userName + ".\nYou scored " + score + " points.");
 	}
 
