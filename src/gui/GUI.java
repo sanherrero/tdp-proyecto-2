@@ -22,13 +22,13 @@ import score.Ranking;
 import timers.*;
 
 import javax.swing.JTextPane;
+import java.awt.Font;
 
 public class GUI extends JFrame {
 
 	private static int height;
 	private static int width;
 	private static JLabel[][] tableroLbl;
-	private static BloqueGrafico[][] tableroBloqueG;
 	private static JLabel lbl_tiempo;
 	private static JLabel lbl_puntos;
 	private static JLabel lbl_nivelactual;
@@ -97,7 +97,7 @@ public class GUI extends JFrame {
 		panelDer.setLayout(null);
 
 		panel = new JPanel();
-		panel.setBounds(10, 140, 164, 288);
+		panel.setBounds(0, 175, 184, 200);
 		// Ranking r = new Ranking(panel);
 		panelDer.add(panel);
 		panel.setLayout(null);
@@ -107,98 +107,111 @@ public class GUI extends JFrame {
 	
 	private void iniciarLabels() {
 		JLabel lblNewLabel_2 = new JLabel("TOP 5");
-		lblNewLabel_2.setBounds(6, 135, 48, 19);
+		lblNewLabel_2.setBounds(4, 162, 48, 19);
 		panel.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_4 = new JLabel("TOP 1");
-		lblNewLabel_4.setBounds(8, 45, 46, 14);
+		lblNewLabel_4.setBounds(6, 62, 46, 14);
 		panel.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("TOP 2");
-		lblNewLabel_5.setBounds(8, 70, 46, 14);
+		lblNewLabel_5.setBounds(6, 87, 46, 14);
 		panel.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("TOP 3");
-		lblNewLabel_6.setBounds(6, 95, 46, 14);
+		lblNewLabel_6.setBounds(6, 112, 46, 14);
 		panel.add(lblNewLabel_6);
 
 		JLabel lblNewLabel_7 = new JLabel("TOP 4");
-		lblNewLabel_7.setBounds(6, 119, 46, 14);
+		lblNewLabel_7.setBounds(6, 137, 46, 14);
 		panel.add(lblNewLabel_7);
 		
 		
 		
 
 		lbltexto_top1 = new JLabel("New label");
-		lbltexto_top1.setBounds(47, 45, 107, 14);
+		lbltexto_top1.setBounds(47, 62, 137, 14);
 		
 		panel.add(lbltexto_top1);
 
 		lbltexto_top2 = new JLabel("New label");
-		lbltexto_top2.setBounds(47, 70, 107, 14);
+		lbltexto_top2.setBounds(47, 87, 137, 14);
 		
 		panel.add(lbltexto_top2);
 
 		lbltexto_top3 = new JLabel("New label");
-		lbltexto_top3.setBounds(47, 95, 107, 14);
+		lbltexto_top3.setBounds(47, 112, 137, 14);
 		
 		panel.add(lbltexto_top3);
 
 		lbltexto_top4 = new JLabel("New label");
-		lbltexto_top4.setBounds(47, 119, 107, 14);
+		lbltexto_top4.setBounds(47, 137, 137, 14);
 		
 		panel.add(lbltexto_top4);
 
 		lbltexto_top5 = new JLabel("New label");
-		lbltexto_top5.setBounds(47, 137, 107, 14);
+		lbltexto_top5.setBounds(47, 162, 137, 14);
 		
 		panel.add(lbltexto_top5);
 		
 		
 
-		JLabel lblNewLabel_8 = new JLabel("PUNTOS");
-		lblNewLabel_8.setBounds(47, 20, 51, 14);
+		JLabel lblNewLabel_8 = new JLabel("PUNTOS -TIEMPO-NOMBRE");
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_8.setBounds(4, 20, 180, 14);
 		panel.add(lblNewLabel_8);
-
-		JLabel lblNewLabel_9 = new JLabel("NOMBRE");
-		lblNewLabel_9.setBounds(108, 20, 56, 14);
-		panel.add(lblNewLabel_9);
 
 		
 
 		
 		lbl_tiempo = new JLabel();
+		lbl_tiempo.setBounds(0, 28, 184, 14);
+		lbl_tiempo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lbl_tiempo.setText("00:00");
 		lbl_tiempo.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_tiempo.setBounds(57, 26, 90, 14);
 		panelDer.add(lbl_tiempo);
 
 		lbl_puntos = new JLabel();
+		lbl_puntos.setBounds(0, 67, 184, 14);
+		lbl_puntos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lbl_puntos.setText("0");
 		lbl_puntos.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_puntos.setBounds(57, 67, 90, 14);
 		panelDer.add(lbl_puntos);
 
 		JLabel lblNewLabel = new JLabel("TIEMPO");
-		lblNewLabel.setBounds(83, 11, 46, 14);
+		lblNewLabel.setBounds(0, 11, 184, 14);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		panelDer.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("PUNTOS");
-		lblNewLabel_1.setBounds(83, 51, 64, 14);
+		lblNewLabel_1.setBounds(0, 53, 184, 14);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		panelDer.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_3 = new JLabel("NIVEL ACTUAL");
-		lblNewLabel_3.setBounds(57, 86, 90, 14);
+		lblNewLabel_3.setBounds(0, 92, 184, 14);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
 		panelDer.add(lblNewLabel_3);
 
-		lbl_nivelactual = new JLabel("New label");
-		lbl_nivelactual.setBounds(83, 103, 46, 14);
+		lbl_nivelactual = new JLabel("0");
+		lbl_nivelactual.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_nivelactual.setBounds(0, 109, 184, 14);
+		lbl_nivelactual.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelDer.add(lbl_nivelactual);
+		
+		JLabel lblNewLabel_10 = new JLabel("");
+		lblNewLabel_10.setBounds(-87, 376, 368, 234);
+		panelDer.add(lblNewLabel_10);
+		lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_10.setIcon(new ImageIcon(GUI.class.getResource("/textures/blocks/teclas.png")));
 	}
 	
 	private void iniciarTableros() {
 		tableroLbl = new JLabel[20][20];
-		tableroBloqueG = new BloqueGrafico[20][20];
 		
 		for(int i =0;i<20;i++) {
 			for(int j =19;j>=0;j--) {
@@ -231,11 +244,6 @@ public class GUI extends JFrame {
 		lbl_puntos.setText("" + puntaje);
 
 	}
-
-	public void setTableroBloquesG(BloqueGrafico[][] tablero) {
-		tableroBloqueG = tablero;
-	}
-
 	
 
 	public void actualizarPuntuacion(int p) {
@@ -256,6 +264,7 @@ public class GUI extends JFrame {
 		}
 
 		lbl_tiempo.setText("0:0:0");
+		lbl_puntos.setText("0");
 		setNivelActual(0);
 
 		actualizarPuntos(Logica.getLogica().getPuntos());
@@ -350,6 +359,4 @@ public class GUI extends JFrame {
 		
 
 	}
-
-	
 }

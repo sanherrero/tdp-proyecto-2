@@ -3,24 +3,18 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-
-import javax.swing.ImageIcon;
-
 import entidades.Pared;
 import entidades.ParteCuerpoSnake;
 import entidades.alimentos.*;
 import entidades.powerups.*;
-
 
 public class Snake {
 
 	protected Logica miJuego;
 	protected Grilla miGrilla;
 	protected int colaAAgrandar;
-
 	protected int x;
 	protected int y;
-
 	protected int tiempoS;
 	protected int puntaje;
 	protected ParteCuerpoSnake cabeza;
@@ -39,12 +33,9 @@ public class Snake {
 	protected String[] cabezaRed = { "src/textures/hr/head-top-red.png", "src/textures/hr/head-bottom-red.png",
 			"src/textures/hr/head-left-red.png", "src/textures/hr/head-right-red.png" };
 
-	
-
 	public Snake(Queue<Pos> posiciones, Logica j, Grilla g) {
 		listaCuerpo = new ArrayList<ParteCuerpoSnake>();
 		while (!posiciones.isEmpty()) {
-			ParteCuerpoSnake parteNueva;
 			Pos pos;
 			try {
 				pos = posiciones.remove();
@@ -90,76 +81,48 @@ public class Snake {
 	}
 
 	public void visit(PowerUp0 p) {
-		
-		miJuego.getSumaPuntos(p.getPuntos());
+
 		this.sumarPuntos(p.getPuntos());
 		this.aumentarTam(p.getIncreaseSize());
-		this.cambiarRosa();
+		this.cambiarColor(2);
+		miJuego.getSumaPuntos(p.getPuntos());
 		miGrilla.agregarPickUpAleatorio();
-		
 
 	}
 
 	public void visit(PowerUp1 p) {
-		
-		miJuego.getSumaPuntos(p.getPuntos());
+
 		this.sumarPuntos(p.getPuntos());
 		this.aumentarTam(p.getIncreaseSize());
-		this.cambiarRojo();
+		this.cambiarColor(3);
+		miJuego.getSumaPuntos(p.getPuntos());
 		miGrilla.agregarPickUpAleatorio();
-		
 
 	}
 
 	public void visit(PowerUp2 p) {
-		miJuego.getSumaPuntos(p.getPuntos());
 		this.sumarPuntos(p.getPuntos());
 		this.aumentarTam(p.getIncreaseSize());
-		this.cambiarVerde();
+		this.cambiarColor(1);
+		miJuego.getSumaPuntos(p.getPuntos());
 		miGrilla.agregarPickUpAleatorio();
+	}
+
+	private void cambiarColor(int color) {
+		colorSnake = color;
+		for (ParteCuerpoSnake i : listaCuerpo) {
+			i.cambiarColor(colorSnake);
+		}
+		cambiarImagenCabeza();
+
 	}
 
 	public int getPuntaje() {
 		return puntaje;
 	}
 
-	
 	public ParteCuerpoSnake getCabeza() {
 		return cabeza;
-	}
-
-	
-
-	public void cambiarDefefault() {
-		colorSnake = 0;
-		for (ParteCuerpoSnake i : listaCuerpo) {
-			i.cambiarColor(colorSnake);
-		}
-		cambiarImagenCabeza();
-	}
-
-	public void cambiarVerde() {
-		colorSnake = 1;
-		for (ParteCuerpoSnake i : listaCuerpo) {
-			i.cambiarColor(colorSnake);
-		}
-		cambiarImagenCabeza();
-	}
-
-	public void cambiarRosa() {
-		colorSnake = 2;
-		for (ParteCuerpoSnake i : listaCuerpo) {
-			i.cambiarColor(colorSnake);
-		}
-		cambiarImagenCabeza();
-	}
-
-	public void cambiarRojo() {
-		colorSnake = 3;
-		for (ParteCuerpoSnake i : listaCuerpo) {
-			i.cambiarColor(colorSnake);
-		}
-		cambiarImagenCabeza();
 	}
 
 	public void cambiarDireccion(int d) {
@@ -169,97 +132,28 @@ public class Snake {
 	}
 
 	public void mover() {
-		if (direccion == 0)
-			moverArriba();
-		if (direccion == 1)
-			moverAbajo();
-		if (direccion == 2)
-			moverIzquierda();
-		if (direccion == 3)
-			moverDerecha();
-	}
-
-	public void moverDerecha() {
-		if (direccion != 2) {
-			direccion = 3;
-			cambiarImagenCabeza();
-			if (colaAAgrandar == 0) {
-				ParteCuerpoSnake cola = listaCuerpo.remove(listaCuerpo.size() - 1);
-				miGrilla.eliminarColaDelTablero(cola);
-			} else {
-				colaAAgrandar = colaAAgrandar - 1;
-			}
-			ParteCuerpoSnake parteAux = new ParteCuerpoSnake(cabeza.getX(), cabeza.getY(), colorSnake);
-			listaCuerpo.add(1, parteAux);
-			cabeza.setX(cabeza.getX() + 1);
-			miGrilla.actualizarPosSnake();
-
-		}
-	}
-
-	public void moverIzquierda() {
-		if (direccion != 3) {
-			direccion = 2;
-			cambiarImagenCabeza();
-			if (colaAAgrandar == 0) {
-				ParteCuerpoSnake cola = listaCuerpo.remove(listaCuerpo.size() - 1);
-				miGrilla.eliminarColaDelTablero(cola);
-			} else {
-				colaAAgrandar = colaAAgrandar - 1;
-			}
-
-			ParteCuerpoSnake parteAux = new ParteCuerpoSnake(cabeza.getX(), cabeza.getY(), colorSnake);
-			listaCuerpo.add(1, parteAux);
-			cabeza.setX(cabeza.getX() - 1);
-			miGrilla.actualizarPosSnake();
-
+		
+		if (colaAAgrandar == 0) {
+			ParteCuerpoSnake cola = listaCuerpo.remove(listaCuerpo.size() - 1);
+			miGrilla.eliminarColaDelTablero(cola);
+		} else {
+			colaAAgrandar = colaAAgrandar - 1;
 		}
 
-	}
+		int x = cabeza.getX();
+		int y = cabeza.getY();
 
-	public void moverAbajo() {
-		if (direccion != 0) {
-			direccion = 1;
-			cambiarImagenCabeza();
-			if (colaAAgrandar == 0) {
-				ParteCuerpoSnake cola = listaCuerpo.remove(listaCuerpo.size() - 1);
-				miGrilla.eliminarColaDelTablero(cola);
-			} else {
-				colaAAgrandar = colaAAgrandar - 1;
-			}
-			ParteCuerpoSnake parteAux = new ParteCuerpoSnake(cabeza.getX(), cabeza.getY(), colorSnake);
-			listaCuerpo.add(1, parteAux);
-			cabeza.setY(cabeza.getY() +1);
-			miGrilla.actualizarPosSnake();
-
-		}
-	}
-
-	public void moverArriba() {
-		if (direccion != 1) {
-			direccion = 0;
-			cambiarImagenCabeza();
-			if (colaAAgrandar == 0) {
-				ParteCuerpoSnake cola = listaCuerpo.remove(listaCuerpo.size() - 1);
-				miGrilla.eliminarColaDelTablero(cola);
-			} else {
-				colaAAgrandar = colaAAgrandar - 1;
-			}
-			ParteCuerpoSnake parteAux = new ParteCuerpoSnake(cabeza.getX(),cabeza.getY(),colorSnake);
-			listaCuerpo.add(1, parteAux);
-			cabeza.setY(cabeza.getY() -1);
-			miGrilla.actualizarPosSnake();
-
-		}
+		ParteCuerpoSnake parteAux = new ParteCuerpoSnake(x, y, colorSnake);
+		moverCabeza();
+		cambiarImagenCabeza();
+		listaCuerpo.add(1, parteAux);
+		miGrilla.actualizarPosSnake(cabeza, parteAux);
 	}
 
 	public void gameOver() {
 		miGrilla.gameOver(false);
 	}
 
-	public int getMovimientoActual() {
-		return direccion;
-	}
 	// hilo de ejecucion del tiempo de la snake
 
 	public int getTiempo() {
@@ -288,18 +182,38 @@ public class Snake {
 		return listaCuerpo.get(listaCuerpo.size() - 1);
 	}
 
+	private void moverCabeza() {
+		switch (direccion) {
+		case 0:
+			cabeza.setY(cabeza.getY() - 1);
+			break;
+		case 1:
+			cabeza.setY(cabeza.getY() + 1);
+			break;
+		case 2:
+			cabeza.setX(cabeza.getX() - 1);
+			break;
+		case 3:
+			cabeza.setX(cabeza.getX() + 1);
+			break;
+		}
+	}
+
 	private void cambiarImagenCabeza() {
-		if (colorSnake == 0) {
+
+		switch (colorSnake) {
+		case 0:
 			cabeza.setImagen(cabezaDefault[direccion]);
-		}
-		if (colorSnake == 1) {
+			break;
+		case 1:
 			cabeza.setImagen(cabezaGreen[direccion]);
-		}
-		if (colorSnake == 2) {
+			break;
+		case 2:
 			cabeza.setImagen(cabezaPink[direccion]);
-		}
-		if (colorSnake == 3) {
+			break;
+		case 3:
 			cabeza.setImagen(cabezaRed[direccion]);
+			break;
 		}
 
 	}

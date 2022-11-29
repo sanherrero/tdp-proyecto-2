@@ -1,7 +1,5 @@
 package entidades.powerups;
 
-import javax.swing.ImageIcon;
-
 import logica.Snake;
 
 public class PowerUp2 extends PowerUp{

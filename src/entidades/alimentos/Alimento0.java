@@ -1,7 +1,5 @@
 package entidades.alimentos;
 
-import javax.swing.ImageIcon;
-
 import logica.Snake;
 
 public class Alimento0 extends Alimento {
@@ -13,7 +11,7 @@ public class Alimento0 extends Alimento {
 	}
 
 	@Override
-	public void accept(logica.Snake serpiente) {
+	public void accept(Snake serpiente) {
 		serpiente.visit(this);
 		
 	}

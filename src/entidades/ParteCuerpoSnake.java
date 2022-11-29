@@ -1,8 +1,4 @@
 package entidades;
-
-import javax.swing.ImageIcon;
-
-import gui.GUI;
 import logica.Snake;
 
 public class ParteCuerpoSnake extends Entity {

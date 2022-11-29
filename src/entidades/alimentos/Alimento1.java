@@ -1,6 +1,6 @@
 package entidades.alimentos;
 
-
+import logica.Snake;
 
 public class Alimento1 extends Alimento {
 
@@ -12,7 +12,7 @@ public class Alimento1 extends Alimento {
 	}
 
 	@Override
-	public void accept(logica.Snake serpiente) {
+	public void accept(Snake serpiente) {
 		serpiente.visit(this);
 		
 	}

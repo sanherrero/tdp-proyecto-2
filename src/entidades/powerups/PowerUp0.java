@@ -1,6 +1,5 @@
 package entidades.powerups;
 
-import entidades.Entity;
 import logica.Snake;
 
 public class PowerUp0 extends PowerUp {

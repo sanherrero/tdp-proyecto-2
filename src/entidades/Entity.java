@@ -1,7 +1,5 @@
 package entidades;
 
-import javax.swing.ImageIcon;
-
 import gui.BloqueGrafico;
 import logica.Snake;
 
@@ -14,8 +12,8 @@ public abstract class Entity {
 	public Entity(int x, int y, String img) {
 		posX = x;
 		posY = y;
-		bloqueg = new BloqueGrafico(x,y,img);
-		
+		bloqueg = new BloqueGrafico(x, y, img);
+
 	}
 
 	public int getX() {
@@ -35,7 +33,7 @@ public abstract class Entity {
 		posY = y;
 		bloqueg.setPosition(posX, posY);
 	}
-	
+
 	public BloqueGrafico getBloqueG() {
 		return bloqueg;
 	}

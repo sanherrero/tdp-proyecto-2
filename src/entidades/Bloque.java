@@ -1,9 +1,6 @@
 package entidades;
 
 import java.util.Random;
-
-import javax.swing.ImageIcon;
-
 import logica.Snake;
 
 public class Bloque extends Entity {
@@ -31,20 +28,12 @@ public class Bloque extends Entity {
 
 	}
 
-	
-
 	public boolean hayEspacio() {
 		return true;
 	}
 
-
-
-	@Override
 	public void accept(Snake serpiente) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	
+	}
 
 }

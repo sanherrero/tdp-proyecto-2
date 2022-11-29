@@ -1,16 +1,12 @@
 package logica;
 
-
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Queue;
-
 import entidades.Bloque;
 import entidades.Entity;
 import entidades.ParteCuerpoSnake;
 import entidades.alimentos.*;
 import entidades.powerups.*;
-import gui.GUI;
 
 public class Grilla {
 	int nivelActual = 0;
@@ -44,7 +40,7 @@ public class Grilla {
 	}
 
 	public void siguienteNivel() {
-		
+
 		if (nivelActual == 5) {
 			gameOver(true);
 		} else {
@@ -54,7 +50,7 @@ public class Grilla {
 				tablero[i.getX()][i.getY()] = i;
 			}
 			agregarPickUpAleatorio();
-			
+
 		}
 
 	}
@@ -84,32 +80,26 @@ public class Grilla {
 		return nivelActual;
 	}
 
-	public Entity[][] getTablero() {
-		return tablero;
-
-	}
-
 	public void eliminarColaDelTablero(ParteCuerpoSnake cola) {
 		int AuxX = cola.getX();
 		int AuxY = cola.getY();
 		Bloque bloqueAux = new Bloque(AuxX, AuxY);
 		tablero[AuxX][AuxY] = bloqueAux;
-		
 
 	}
 
-	public void actualizarPosSnake() {
+	public void actualizarPosSnake(ParteCuerpoSnake cabeza, ParteCuerpoSnake parteNueva) {
 		checkColitions();
-		int AuxX = serpiente.getCabeza().getX();
-		int AuxY = serpiente.getCabeza().getY();
-
-		tablero[AuxX][AuxY] = serpiente.getCabeza();
 		
-
-		ParteCuerpoSnake parteAux = serpiente.getCuerpo(1);
-		AuxX = parteAux.getX();
-		AuxY = parteAux.getY();
-		tablero[AuxX][AuxY] = parteAux;
+		int AuxX = cabeza.getX();
+		int AuxY = cabeza.getY();
+		tablero[AuxX][AuxY] = cabeza;
+		
+		AuxX = parteNueva.getX();
+		AuxY = parteNueva.getY();
+		tablero[AuxX][AuxY] = parteNueva;
+		
+		
 
 	}
 
@@ -120,7 +110,7 @@ public class Grilla {
 		try {
 			Pos posAux = buscarLugar();
 			if (!alimentos.isEmpty() && !powerups.isEmpty()) {
-				
+
 				if (numRandom == 0) {
 					crearAlimento(alimentos.remove(), posAux);
 				} else {
@@ -128,7 +118,7 @@ public class Grilla {
 				}
 
 			} else {
-				
+
 				if (alimentos.isEmpty() && powerups.isEmpty()) {
 					nivelActual++;
 					logica.Logica.getLogica().siguienteNivel();
@@ -172,7 +162,6 @@ public class Grilla {
 			break;
 		}
 
-
 	}
 
 	private void crearPowerUp(Integer i, Pos p) {
@@ -191,11 +180,6 @@ public class Grilla {
 			break;
 
 		}
-
-	}
-
-	private void terminoNivel() {
-		System.out.println("termino nivel");
 
 	}
 

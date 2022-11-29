@@ -1,7 +1,4 @@
 package entidades;
-
-
-
 import logica.Snake;
 
 public class Pared extends Entity {

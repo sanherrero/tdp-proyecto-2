@@ -1,5 +1,0 @@
-500 00:30 Cache
-400 00:20 Cache
-300 00:50 Cache
-200 00:10 Cache
-100 00:20 Cache
