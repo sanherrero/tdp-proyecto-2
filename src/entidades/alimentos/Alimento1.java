@@ -17,6 +17,4 @@ public class Alimento1 extends Alimento {
 		
 	}
 	
-	
-	
 }
