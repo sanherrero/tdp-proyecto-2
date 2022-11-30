@@ -6,7 +6,6 @@ public class PowerUp0 extends PowerUp {
 
 	public PowerUp0(int x, int y) {
 		super(x, y, "src/textures/powerups/powerup_0.png");
-		System.out.println("creo pu0");
 		puntos = 50;
 	}
 

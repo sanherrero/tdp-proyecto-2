@@ -21,8 +21,6 @@ public class Ranking {
 				e.printStackTrace();
 			}
 		}
-		
-
 	};
 
 	public void escribirArchivo(int puntos, String tiempo, String nombre) {
@@ -44,15 +42,13 @@ public class Ranking {
 			if (!archivo) 
 				bfwriter.newLine();
 
-
 			bfwriter.write(puntos+" "+tiempo+" "+nombre);
 			bfwriter.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-
+	
 	}
 
 	public void ordenarLista() {
@@ -65,7 +61,6 @@ public class Ranking {
 
 			while ((string = br.readLine()) != null) {
 				//divido cada linea del archivo en puntos, tiempo y nombre. Parseo puntos y tiempo a enteros
-				System.out.println(string+"<<");
 				String[] dividoString = string.split(" ");
 				String puntos = dividoString[0]; 
 				String tiempo = dividoString[1]; 
@@ -79,7 +74,6 @@ public class Ranking {
 				int puntosOrdenar = Integer.parseInt(puntajeParaOrdenar);//puntos con los que voy a ordenar la lista
 				int puntosJugador = Integer.parseInt(puntos); //puntos que voy a pasar al archivo
 				Jugador j = new Jugador(puntosOrdenar, puntosJugador, tiempo, nombre);
-				System.out.println(""+j.getPuntos());
 				listaJugadores.add(j);
 			}
 				sortRanking(listaJugadores);
@@ -108,7 +102,6 @@ public class Ranking {
 					tiempo = lj.get(i).getTiempo();
 					nombre = lj.get(i).getNombre();
 					pw.print(puntos+" "+tiempo+" "+nombre);
-					System.out.println("Escribo "+puntos+" "+tiempo+" "+nombre);
 					if(i != lj.size()-1&&i<4)
 						pw.println("");
 				}
@@ -145,7 +138,6 @@ public class Ranking {
 				
 				br.close();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return salida;
