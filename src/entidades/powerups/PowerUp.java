@@ -1,9 +1,9 @@
 package entidades.powerups;
 
-import entidades.Entity;
+import entidades.PickUp;
 import logica.Snake;
 
-public abstract class PowerUp extends Entity {
+public abstract class PowerUp extends PickUp {
 
 	protected int puntos;
 	protected final int increaseSize = 3;

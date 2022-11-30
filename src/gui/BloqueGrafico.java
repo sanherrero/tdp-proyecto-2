@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.ImageIcon;
 
+import entidades.PickUp;
 import entidades.alimentos.*;
 import entidades.powerups.*;
 import logica.Snake;
@@ -175,5 +176,10 @@ public class BloqueGrafico {
 			}
 			break;
 		}
+	}
+
+	public void setImagen(PickUp p) {
+		// TODO Auto-generated method stub
+		
 	}		
 }

@@ -3,13 +3,13 @@ package entidades;
 import gui.BloqueGrafico;
 import logica.Snake;
 
-public abstract class Entity {
+public abstract class PickUp {
 
 	protected BloqueGrafico bloqueg;
 	protected int posX;
 	protected int posY;
 
-	public Entity(int x, int y, String img) {
+	public PickUp(int x, int y, String img) {
 		posX = x;
 		posY = y;
 		bloqueg = new BloqueGrafico(x, y, img);

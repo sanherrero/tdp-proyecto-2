@@ -1,9 +1,9 @@
 package entidades.alimentos;
 
-import entidades.Entity;
+import entidades.PickUp;
 import logica.Snake;
 
-public abstract class Alimento extends Entity {
+public abstract class Alimento extends PickUp {
 
 	protected int puntos;
 	protected int increaseSize;

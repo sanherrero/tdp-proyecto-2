@@ -1,5 +1,6 @@
 package logica;
 
+import entidades.PickUp;
 import entidades.alimentos.Alimento;
 import entidades.powerups.PowerUp;
 import gui.BloqueGrafico;
@@ -8,8 +9,7 @@ public class Bloque {
 	
 	protected int posX, posY;
 	protected boolean ocupado;
-	protected Alimento alimento;
-	protected PowerUp powerup;
+	protected PickUp pickup;
 	protected BloqueGrafico bloqueg;
 
 	public Bloque(boolean ocupado, int x, int y) { //Si al momento de crearse ya esta ocupado es porque es una pared, en caso contrario es un bloque transitable
@@ -61,12 +61,10 @@ public class Bloque {
 			s.gameOver();
 		} else {
 			ocupado = true;
-			if(powerup != null) {
-				powerup.accept(s);
+			if(pickup != null) {
+				pickup.accept(s);
 			}
-			if(alimento != null) {
-				alimento.accept(s);
-			}
+			
 		}
 	}
 	
@@ -74,15 +72,12 @@ public class Bloque {
 		bloqueg = bg;
 	}
 	
-	public void agregarPickUp(Alimento a) {
-		alimento =a;
-		bloqueg.setImagen(a);
+	public void agregarPickUp(PickUp p) {
+		pickup =p;
+		bloqueg.setImagen(p);
 	}
 	
-	public void agregarPickUp(PowerUp p) {
-		powerup =p;
-		bloqueg.setImagen(p);	
-	}
+	
 
 	public BloqueGrafico getBloqueG() {
 		return bloqueg;
