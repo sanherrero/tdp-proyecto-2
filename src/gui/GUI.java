@@ -231,7 +231,7 @@ public class GUI extends JFrame {
 		actualizarPuntos(Logica.getLogica().getPuntos());
 		stopHilos();
 		teclado.setIniciarHilos();
-		if(userName.isEmpty()) {
+		if(userName == null || userName.isEmpty()) {
 			userName = "Anonimo";
 		}
 		ranking.escribirArchivo(score, timerTiempo.getTiempo(), userName);
