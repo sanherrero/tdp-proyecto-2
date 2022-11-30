@@ -2,15 +2,14 @@ package entidades.powerups;
 
 import logica.Snake;
 
-public class PowerUp2 extends PowerUp{
+public class PowerUp2 extends PowerUp {
 
-	public PowerUp2(int x , int y) {
-		super(x,y,"src/textures/powerups/powerup_2.png");
+	public PowerUp2(int x, int y) {
+		super(x, y, "src/textures/powerups/powerup_2.png");
 		puntos = 100;
 	}
 	
 	public void accept(Snake serpiente) {
 		serpiente.visit(this);
 	}
-
 }

@@ -8,14 +8,9 @@ public class TimerSnake extends Thread {
 	private Snake snake;
 	private boolean run=true;
 	
-	
 	public TimerSnake() {
-		
 		snake= Logica.getLogica().getGrilla().getSnake();
-		
 	}
-	
-	
 	
 	public void run() {
 		while(run) {
@@ -23,16 +18,12 @@ public class TimerSnake extends Thread {
 			try {
 				sleep(400);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 	}
+	
 	public void pararRun() {
 		this.run = false;
 	}
-	
-	
-	
 }
