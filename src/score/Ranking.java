@@ -3,7 +3,6 @@ package score;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 public class Ranking {
 
 	private String ruta ="src/score/archivo.txt";
-	private String rutaAux = "src/score/archivoAux.txt";
 	public Ranking() {
 		File archivo = new File(ruta);
 		if (!archivo.exists()) {
@@ -29,6 +27,7 @@ public class Ranking {
 
 	public void escribirArchivo(int puntos, String tiempo, String nombre) {
 		boolean archivo = false;
+		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(ruta));
 			archivo = br.readLine()==null;
@@ -103,13 +102,14 @@ public class Ranking {
 				int puntos = 0;
 				String tiempo = "";
 				String nombre = "";
-				 for (int i = 0; i <lj.size(); i++) {
+				 for (int i = 0; i <lj.size()&&i<5; i++) {
 					 
 					puntos = lj.get(i).getPuntosJugador();
 					tiempo = lj.get(i).getTiempo();
 					nombre = lj.get(i).getNombre();
 					pw.print(puntos+" "+tiempo+" "+nombre);
-					if(i != lj.size()-1)
+					System.out.println("Escribo "+puntos+" "+tiempo+" "+nombre);
+					if(i != lj.size()-1&&i<4)
 						pw.println("");
 				}
 				pw.close();

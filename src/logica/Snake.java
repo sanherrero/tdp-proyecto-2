@@ -3,56 +3,57 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import entidades.Pared;
-import entidades.ParteCuerpoSnake;
 import entidades.alimentos.*;
 import entidades.powerups.*;
+import gui.BloqueGrafico;
 
 public class Snake {
 
 	protected Logica miJuego;
-	protected Grilla miGrilla;
+	protected GrillaNueva miGrilla;
 	protected int colaAAgrandar;
 	protected int x;
 	protected int y;
 	protected int tiempoS;
 	protected int puntaje;
-	protected ParteCuerpoSnake cabeza;
-	protected List<ParteCuerpoSnake> listaCuerpo;
+	protected Bloque cabeza;
+	protected List<Bloque> listaCuerpo;
 	protected int colorSnake = 0; // atributo para describir el color de la snake en el momento 0->default,
 									// 1->green, 2->pink y 3->red
-	protected int direccion = 0; // atributo para describir la direccion de la snake en el momento 0->arriba,
-									// 1->abajo, 2->izquierda y 3->derecha
-	protected String[] cabezaDefault = { "src/textures/hd/head-top-default.png",
-			"src/textures/hd/head-bottom-default.png", "src/textures/hd/head-left-default.png",
-			"src/textures/hd/head-right-default.png" };
-	protected String[] cabezaGreen = { "src/textures/hg/head-top-green.png", "src/textures/hg/head-bottom-green.png",
-			"src/textures/hg/head-left-green.png", "src/textures/hg/head-right-green.png" };
-	protected String[] cabezaPink = { "src/textures/hp/head-top-pink.png", "src/textures/hp/head-bottom-pink.png",
-			"src/textures/hp/head-left-pink.png", "src/textures/hp/head-right-pink.png" };
-	protected String[] cabezaRed = { "src/textures/hr/head-top-red.png", "src/textures/hr/head-bottom-red.png",
-			"src/textures/hr/head-left-red.png", "src/textures/hr/head-right-red.png" };
+	public static final int ColorDefault = 0;
+	public static final int ColorGreen = 1;
+	public static final int ColorPink = 2;
+	public static final int ColorRed = 3;
+	public static final int DireccionArriba = 0;
+	public static final int DireccionAbajo = 1;
+	public static final int DireccionIzquierda = 2;
+	public static final int DireccionDerecha = 3;
 
-	public Snake(Queue<Pos> posiciones, Logica j, Grilla g) {
-		listaCuerpo = new ArrayList<ParteCuerpoSnake>();
-		while (!posiciones.isEmpty()) {
-			Pos pos;
-			try {
-				pos = posiciones.remove();
-				listaCuerpo.add(new ParteCuerpoSnake(pos.getX(), pos.getY(), colorSnake));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	protected int direccion = DireccionArriba; // atributo para describir la direccion de la snake en el momento
+												// 0->Izquierda,
+	// 1->abajo, 2->izquierda y 3->derecha
 
-		}
-		crearCabeza(listaCuerpo.get(0));
-
+	public Snake(Queue<Pos> posiciones, Logica j, GrillaNueva g) {
 		miGrilla = g;
 		miJuego = j;
 
 		puntaje = 0;
 		tiempoS = 0;
+		listaCuerpo = new ArrayList<Bloque>();
+		while (!posiciones.isEmpty()) {
+			Pos pos;
+			try {
+				pos = posiciones.remove();
+				Bloque parteNueva = new Bloque(true, pos.getX(), pos.getY(), BloqueGrafico.ImagenBodyDefault);
+				listaCuerpo.add(parteNueva);
+				miGrilla.add(parteNueva);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+		cabeza = listaCuerpo.get(0);
+		cambiarImagenCabeza();
 
 	}
 
@@ -63,14 +64,6 @@ public class Snake {
 	public void sumarPuntos(int cant) {
 		puntaje += cant;
 
-	}
-
-	public void visit(Pared p) {
-		gameOver();
-	}
-
-	public void visit(ParteCuerpoSnake p) {
-		gameOver();
 	}
 
 	public void visit(Alimento a) {
@@ -110,8 +103,21 @@ public class Snake {
 
 	private void cambiarColor(int color) {
 		colorSnake = color;
-		for (ParteCuerpoSnake i : listaCuerpo) {
-			i.cambiarColor(colorSnake);
+		for (Bloque i : listaCuerpo) {
+			switch (colorSnake) {
+			case ColorDefault:
+				i.getBloqueG().setImagen(BloqueGrafico.ImagenBodyDefault);
+				break;
+			case ColorGreen:
+				i.getBloqueG().setImagen(BloqueGrafico.ImagenBodyGreen);
+				break;
+			case ColorPink:
+				i.getBloqueG().setImagen(BloqueGrafico.ImagenBodyPink);
+				break;
+			case ColorRed:
+				i.getBloqueG().setImagen(BloqueGrafico.ImagenBodyRed);
+				break;
+			}
 		}
 		cambiarImagenCabeza();
 
@@ -121,7 +127,7 @@ public class Snake {
 		return puntaje;
 	}
 
-	public ParteCuerpoSnake getCabeza() {
+	public Bloque getCabeza() {
 		return cabeza;
 	}
 
@@ -132,10 +138,11 @@ public class Snake {
 	}
 
 	public void mover() {
-		
+
 		if (colaAAgrandar == 0) {
-			ParteCuerpoSnake cola = listaCuerpo.remove(listaCuerpo.size() - 1);
-			miGrilla.eliminarColaDelTablero(cola);
+			Bloque cola = listaCuerpo.remove(listaCuerpo.size() - 1);
+
+			miGrilla.remove(cola);
 		} else {
 			colaAAgrandar = colaAAgrandar - 1;
 		}
@@ -143,11 +150,30 @@ public class Snake {
 		int x = cabeza.getX();
 		int y = cabeza.getY();
 
-		ParteCuerpoSnake parteAux = new ParteCuerpoSnake(x, y, colorSnake);
+		Bloque parteAux = new Bloque(true, x, y, imagenCuerpo());
 		moverCabeza();
 		cambiarImagenCabeza();
 		listaCuerpo.add(1, parteAux);
-		miGrilla.actualizarPosSnake(cabeza, parteAux);
+		miGrilla.actualizarSnake();
+	}
+
+	private String imagenCuerpo() {
+		String salida = "";
+		switch (colorSnake) {
+		case ColorDefault:
+			salida = BloqueGrafico.ImagenBodyDefault;
+			break;
+		case ColorGreen:
+			salida = BloqueGrafico.ImagenBodyGreen;
+			break;
+		case ColorPink:
+			salida = BloqueGrafico.ImagenBodyPink;
+			break;
+		case ColorRed:
+			salida = BloqueGrafico.ImagenBodyRed;
+			break;
+		}
+		return salida;
 	}
 
 	public void gameOver() {
@@ -164,58 +190,37 @@ public class Snake {
 		tiempoS = t;
 	}
 
-	private void crearCabeza(ParteCuerpoSnake c) {
-		cabeza = c;
-		cabeza.setImagen(cabezaDefault[direccion]);
 
-	}
-
-	public List<ParteCuerpoSnake> getCuerpo() {
+	public List<Bloque> getCuerpo() {
 		return listaCuerpo;
 	}
 
-	public ParteCuerpoSnake getCuerpo(int i) {
+	public Bloque getCuerpo(int i) {
 		return listaCuerpo.get(i);
 	}
 
-	public ParteCuerpoSnake getCola() {
+	public Bloque getCola() {
 		return listaCuerpo.get(listaCuerpo.size() - 1);
 	}
 
 	private void moverCabeza() {
 		switch (direccion) {
-		case 0:
+		case DireccionArriba:
 			cabeza.setY(cabeza.getY() - 1);
 			break;
-		case 1:
+		case DireccionAbajo:
 			cabeza.setY(cabeza.getY() + 1);
 			break;
-		case 2:
+		case DireccionIzquierda:
 			cabeza.setX(cabeza.getX() - 1);
 			break;
-		case 3:
+		case DireccionDerecha:
 			cabeza.setX(cabeza.getX() + 1);
 			break;
 		}
 	}
 
 	private void cambiarImagenCabeza() {
-
-		switch (colorSnake) {
-		case 0:
-			cabeza.setImagen(cabezaDefault[direccion]);
-			break;
-		case 1:
-			cabeza.setImagen(cabezaGreen[direccion]);
-			break;
-		case 2:
-			cabeza.setImagen(cabezaPink[direccion]);
-			break;
-		case 3:
-			cabeza.setImagen(cabezaRed[direccion]);
-			break;
-		}
-
+		cabeza.getBloqueG().cambiarImagenCabezaSnake(direccion, colorSnake);
 	}
-
 }

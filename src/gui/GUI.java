@@ -2,9 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Image;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -17,11 +15,11 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import logica.Logica;
-import score.Jugador;
+
 import score.Ranking;
 import timers.*;
 
-import javax.swing.JTextPane;
+
 import java.awt.Font;
 
 public class GUI extends JFrame {
@@ -98,7 +96,6 @@ public class GUI extends JFrame {
 
 		panel = new JPanel();
 		panel.setBounds(0, 175, 184, 200);
-		// Ranking r = new Ranking(panel);
 		panelDer.add(panel);
 		panel.setLayout(null);
 
@@ -231,7 +228,6 @@ public class GUI extends JFrame {
 		ranking = new Ranking();
 		String[] top5 =ranking.getTopFive();
 		
-		System.out.println(top5[0]);
 		lbltexto_top1.setText(top5[0]);
 		lbltexto_top2.setText(top5[1]);
 		lbltexto_top3.setText(top5[2]);
@@ -270,6 +266,8 @@ public class GUI extends JFrame {
 		actualizarPuntos(Logica.getLogica().getPuntos());
 		stopHilos();
 		teclado.setIniciarHilos();
+		if(userName.isEmpty())
+			userName = "Anonimo";
 		ranking.escribirArchivo(score, timerTiempo.getTiempo(), userName);
 		ranking.ordenarLista();
 		setLblTop5();

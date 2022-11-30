@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-import entidades.Bloque;
-import entidades.Entity;
-import entidades.Pared;
+
 import gui.BloqueGrafico;
-import gui.GUI;
+
 
 public class LevelGenerator {
 	protected String[] niveles = { "src/niveles/lvl0.txt", "src/niveles/lvl1.txt", "src/niveles/lvl2.txt",
@@ -23,7 +21,7 @@ public class LevelGenerator {
 
 	}
 
-	public Queue<Pos> cargarNivel(int lvl, Queue<Integer> alimentos, Queue<Integer> pu, Entity[][] t) {
+	public Queue<Pos> cargarNivel(int lvl, Queue<Integer> alimentos, Queue<Integer> pu, Bloque[][] t) {
 		File txt_nivel = new File(niveles[lvl]);
 
 		List<Queue<Pos>> posParaSnake = new ArrayList<Queue<Pos>>();
@@ -38,11 +36,11 @@ public class LevelGenerator {
 				BloqueGrafico g;
 				for (int j = 0; j < linea.length(); j++) {
 					if (linea.charAt(j) == 'X') {
-						t[i][j] = new Pared(i, j);
+						t[i][j] = new Bloque(true,i, j);
 						contAux = 0;
 						colaAux = new ArrayDeque<Pos>();
 					} else {
-						t[i][j] = new Bloque(i, j);
+						t[i][j] = new Bloque(false,i, j);
 
 						colaAux.add(new Pos(i, j));
 						contAux++;
