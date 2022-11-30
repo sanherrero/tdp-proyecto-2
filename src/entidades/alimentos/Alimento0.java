@@ -10,10 +10,7 @@ public class Alimento0 extends Alimento {
 		increaseSize = 2;
 	}
 
-	@Override
 	public void accept(Snake serpiente) {
-		serpiente.visit(this);
-		
+		serpiente.visit(this);		
 	}
-
 }

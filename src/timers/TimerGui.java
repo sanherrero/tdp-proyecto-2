@@ -49,7 +49,6 @@ public class TimerGui implements Runnable {
 			} else {
 				snake.setTiempo((int) tiempoTranscurrido);
 			}
-
 		}
 	}
 
@@ -64,5 +63,4 @@ public class TimerGui implements Runnable {
 		}
 		return salida;
 	}
-
 }

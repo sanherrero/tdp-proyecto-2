@@ -22,6 +22,7 @@ import timers.*;
 
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class GUI extends JFrame {
 
 	private static int height;
@@ -36,16 +37,12 @@ public class GUI extends JFrame {
 	private Thread hiloTiempo;
 	private static Oyente teclado;
 	private Ranking ranking;
-
 	protected static JLabel lbltexto_top1, lbltexto_top2, lbltexto_top3, lbltexto_top4, lbltexto_top5;
 	private static GUI miGUI;
 	private static JPanel panelIzq,panel,panelDer;
-	
-	
 
 	private GUI() {
 		initialize();
-
 	}
 
 	public static GUI getGUI() {
@@ -55,29 +52,21 @@ public class GUI extends JFrame {
 	}
 
 	private void initialize() {
-
 		width = 600;
 		height = 600;
-
 		getContentPane().setLayout(null);
 		getContentPane().setBounds(0, 0, width + 200, 900);
-
 		Dimension test = new Dimension(width + 200, height + 35);
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setPreferredSize(test);
 		pack();
-
 		iniciarPaneles();
 		iniciarLabels();
 		setLblTop5();
 		iniciarTableros();
-		
-		
 		teclado = new Oyente();
-
 		this.addKeyListener(teclado);
-
 	}
 	
 	private void iniciarPaneles() {
@@ -85,28 +74,24 @@ public class GUI extends JFrame {
 		panelIzq.setForeground(Color.BLACK);
 		panelIzq.setBackground(Color.BLACK);
 		panelIzq.setBounds(0, 0, width, height);
-
 		getContentPane().add(panelIzq);
 		panelIzq.setLayout(null);
-
+		
 		panelDer = new JPanel();
 		panelDer.setBounds(600, 0, 184, 600);
 		getContentPane().add(panelDer);
 		panelDer.setLayout(null);
-
 		panel = new JPanel();
 		panel.setBounds(0, 175, 184, 200);
 		panelDer.add(panel);
 		panel.setLayout(null);
-
-		
 	}
 	
 	private void iniciarLabels() {
 		JLabel lblNewLabel_2 = new JLabel("TOP 5");
 		lblNewLabel_2.setBounds(4, 162, 48, 19);
 		panel.add(lblNewLabel_2);
-
+		
 		JLabel lblNewLabel_4 = new JLabel("TOP 1");
 		lblNewLabel_4.setBounds(6, 62, 46, 14);
 		panel.add(lblNewLabel_4);
@@ -123,44 +108,31 @@ public class GUI extends JFrame {
 		lblNewLabel_7.setBounds(6, 137, 46, 14);
 		panel.add(lblNewLabel_7);
 		
-		
-		
-
 		lbltexto_top1 = new JLabel("New label");
 		lbltexto_top1.setBounds(47, 62, 137, 14);
-		
 		panel.add(lbltexto_top1);
 
 		lbltexto_top2 = new JLabel("New label");
 		lbltexto_top2.setBounds(47, 87, 137, 14);
-		
 		panel.add(lbltexto_top2);
 
 		lbltexto_top3 = new JLabel("New label");
 		lbltexto_top3.setBounds(47, 112, 137, 14);
-		
 		panel.add(lbltexto_top3);
 
 		lbltexto_top4 = new JLabel("New label");
 		lbltexto_top4.setBounds(47, 137, 137, 14);
-		
 		panel.add(lbltexto_top4);
 
 		lbltexto_top5 = new JLabel("New label");
 		lbltexto_top5.setBounds(47, 162, 137, 14);
-		
 		panel.add(lbltexto_top5);
-		
-		
 
 		JLabel lblNewLabel_8 = new JLabel("PUNTOS -TIEMPO-NOMBRE");
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_8.setBounds(4, 20, 180, 14);
 		panel.add(lblNewLabel_8);
-
-		
-
 		
 		lbl_tiempo = new JLabel();
 		lbl_tiempo.setBounds(0, 28, 184, 14);
@@ -194,7 +166,7 @@ public class GUI extends JFrame {
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
 		panelDer.add(lblNewLabel_3);
 
-		lbl_nivelactual = new JLabel("0");
+		lbl_nivelactual = new JLabel("");
 		lbl_nivelactual.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_nivelactual.setBounds(0, 109, 184, 14);
 		lbl_nivelactual.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -216,18 +188,13 @@ public class GUI extends JFrame {
 				l.setBounds(i*30, j *30, 30, 30);
 				tableroLbl[i][j] = l;
 				panelIzq.add(l);
-				
 			}
 		}
-		
-		
-		
 	}
 	
 	public void setLblTop5() {
 		ranking = new Ranking();
 		String[] top5 =ranking.getTopFive();
-		
 		lbltexto_top1.setText(top5[0]);
 		lbltexto_top2.setText(top5[1]);
 		lbltexto_top3.setText(top5[2]);
@@ -238,7 +205,6 @@ public class GUI extends JFrame {
 
 	private void actualizarPuntos(int puntaje) {
 		lbl_puntos.setText("" + puntaje);
-
 	}
 	
 
@@ -251,7 +217,6 @@ public class GUI extends JFrame {
 	}
 
 	public void gameOver(boolean gane, int score) {
-
 		String userName;
 		if (gane) {
 			userName = JOptionPane.showInputDialog(null, "You win! Insert your name:");
@@ -266,16 +231,21 @@ public class GUI extends JFrame {
 		actualizarPuntos(Logica.getLogica().getPuntos());
 		stopHilos();
 		teclado.setIniciarHilos();
-		if(userName.isEmpty())
+		if(userName == null) {
 			userName = "Anonimo";
+		}
 		ranking.escribirArchivo(score, timerTiempo.getTiempo(), userName);
 		ranking.ordenarLista();
 		setLblTop5();
-		JOptionPane.showMessageDialog(null, "Congratulations " + userName + ".\nYou scored " + score + " points.");
+		if(score == 0) {
+			JOptionPane.showMessageDialog(null, "Dale, " + userName + ", no es tan difícil.");
+		} else {
+			JOptionPane.showMessageDialog(null, "Congratulations " + userName + ".\nYou scored " + score + " points.");
+		}
 	}
 
 	public void setNivelActual(int i) {
-		lbl_nivelactual.setText("" + i);
+		lbl_nivelactual.setText(String.valueOf(i+1));
 	}
 
 	private void startHilos() {
@@ -289,26 +259,23 @@ public class GUI extends JFrame {
 	}
 
 	public void stopHilos() {
-
 		timerTiempo.pararRun();
 		timerSerpiente.pararRun();
 		teclado.setIniciarHilos();
-
 	}
 
 	public void addBloqueGrafico(BloqueGrafico b) {
 		tableroLbl[b.getX()][b.getY()].setIcon(b.getImagen());
 		repaint();
-		
 	}
 
 	private class Oyente implements KeyListener {
 		boolean iniciarHilos = true;
 
 		public void keyTyped(KeyEvent e) {
+			
 		}
 
-		@Override
 		public void keyPressed(KeyEvent e) {
 			if (iniciarHilos) {
 				iniciarHilos = false;
@@ -334,9 +301,7 @@ public class GUI extends JFrame {
 
 		}
 
-		@Override
 		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
 
 		}
 
@@ -347,14 +312,11 @@ public class GUI extends JFrame {
 	}
 
 	public void siguienteNivel(int i) {
-	
 		JOptionPane.showMessageDialog(null, "Pasaste de nivel!");
 		GUI.getGUI().stopHilos();
 		teclado.setIniciarHilos();
 		lbl_tiempo.setText("0:0:0");
-		lbl_nivelactual.setText(""+i);
+		lbl_nivelactual.setText(String.valueOf(i));
 		repaint();
-		
-
 	}
 }

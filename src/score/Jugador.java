@@ -1,6 +1,7 @@
 package score;
 
 public class Jugador {
+	
 	private int puntosOrdenar;
 	private int puntosJugador;
 	private String tiempo;
@@ -28,5 +29,4 @@ public class Jugador {
 	public int getPuntosJugador() {
 		return puntosJugador;
 	}
-	
 }

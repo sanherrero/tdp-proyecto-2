@@ -18,25 +18,20 @@ public class Snake {
 	protected int puntaje;
 	protected Bloque cabeza;
 	protected List<Bloque> listaCuerpo;
-	protected int colorSnake = 0; // atributo para describir el color de la snake en el momento 0->default,
-									// 1->green, 2->pink y 3->red
-	public static final int ColorDefault = 0;
+	protected int colorSnake = 0; // Atributo para describir el color de la snake en el momento.
+	public static final int ColorDefault = 0; 
 	public static final int ColorGreen = 1;
 	public static final int ColorPink = 2;
 	public static final int ColorRed = 3;
+	protected int direccion = 0; // Atributo para describir la direccion de la snake en el momento.
 	public static final int DireccionArriba = 0;
 	public static final int DireccionAbajo = 1;
 	public static final int DireccionIzquierda = 2;
 	public static final int DireccionDerecha = 3;
 
-	protected int direccion = DireccionArriba; // atributo para describir la direccion de la snake en el momento
-												// 0->Izquierda,
-	// 1->abajo, 2->izquierda y 3->derecha
-
 	public Snake(Queue<Pos> posiciones, Logica j, GrillaNueva g) {
 		miGrilla = g;
 		miJuego = j;
-
 		puntaje = 0;
 		tiempoS = 0;
 		listaCuerpo = new ArrayList<Bloque>();
@@ -50,11 +45,9 @@ public class Snake {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 		}
 		cabeza = listaCuerpo.get(0);
 		cambiarImagenCabeza();
-
 	}
 
 	public void aumentarTam(int cant) {
@@ -63,34 +56,28 @@ public class Snake {
 
 	public void sumarPuntos(int cant) {
 		puntaje += cant;
-
 	}
 
 	public void visit(Alimento a) {
 		miJuego.getSumaPuntos(a.getPuntos());
 		this.aumentarTam(a.getIncreaseSize());
 		miGrilla.agregarPickUpAleatorio();
-
 	}
 
 	public void visit(PowerUp0 p) {
-
 		this.sumarPuntos(p.getPuntos());
 		this.aumentarTam(p.getIncreaseSize());
 		this.cambiarColor(2);
 		miJuego.getSumaPuntos(p.getPuntos());
 		miGrilla.agregarPickUpAleatorio();
-
 	}
 
 	public void visit(PowerUp1 p) {
-
 		this.sumarPuntos(p.getPuntos());
 		this.aumentarTam(p.getIncreaseSize());
 		this.cambiarColor(3);
 		miJuego.getSumaPuntos(p.getPuntos());
 		miGrilla.agregarPickUpAleatorio();
-
 	}
 
 	public void visit(PowerUp2 p) {
@@ -120,7 +107,6 @@ public class Snake {
 			}
 		}
 		cambiarImagenCabeza();
-
 	}
 
 	public int getPuntaje() {
@@ -132,24 +118,39 @@ public class Snake {
 	}
 
 	public void cambiarDireccion(int d) {
-		if (!(d == 0 && direccion == 1) && !(d == 1 && direccion == 0) && !(d == 2 && direccion == 3)
-				&& !(d == 3 && direccion == 2))
+		if (d != opuesto()) {
 			direccion = d;
+		}
 	}
 
+	private int opuesto() {
+		int toReturn = 1;
+		switch(direccion) {
+			case 1: {
+				toReturn = 0;
+				break;
+			}
+			case 2: {
+				toReturn = 3;
+				break;
+			}
+			case 3: {
+				toReturn = 2;
+				break;
+			}
+		}
+		return toReturn;
+	}
+	
 	public void mover() {
-
 		if (colaAAgrandar == 0) {
 			Bloque cola = listaCuerpo.remove(listaCuerpo.size() - 1);
-
 			miGrilla.remove(cola);
 		} else {
 			colaAAgrandar = colaAAgrandar - 1;
 		}
-
 		int x = cabeza.getX();
 		int y = cabeza.getY();
-
 		Bloque parteAux = new Bloque(true, x, y, imagenCuerpo());
 		moverCabeza();
 		cambiarImagenCabeza();
@@ -189,7 +190,6 @@ public class Snake {
 	public void setTiempo(int t) {
 		tiempoS = t;
 	}
-
 
 	public List<Bloque> getCuerpo() {
 		return listaCuerpo;

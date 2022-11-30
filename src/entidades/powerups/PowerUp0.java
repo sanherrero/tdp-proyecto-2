@@ -12,5 +12,4 @@ public class PowerUp0 extends PowerUp {
 	public void accept(Snake serpiente) {
 		serpiente.visit(this);
 	}
-
 }

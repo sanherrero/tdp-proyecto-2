@@ -13,7 +13,6 @@ public abstract class Entity {
 		posX = x;
 		posY = y;
 		bloqueg = new BloqueGrafico(x, y, img);
-
 	}
 
 	public int getX() {

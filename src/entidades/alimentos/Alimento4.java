@@ -8,13 +8,9 @@ public class Alimento4 extends Alimento {
 		super(x, y, "src/textures/alimentos/alimento_4.png");
 		puntos = 100;
 		increaseSize = 6;
-
 	}
 
-	@Override
 	public void accept(Snake serpiente) {
-		serpiente.visit(this);
-		
+		serpiente.visit(this);		
 	}
-
 }

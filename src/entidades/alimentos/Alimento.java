@@ -8,11 +8,9 @@ public abstract class Alimento extends Entity {
 	protected int puntos;
 	protected int increaseSize;
 	
-	public Alimento(int x,int y,String img) {
-		super(x,y,img);
+	public Alimento(int x, int y, String img) {
+		super(x, y, img);
 	}
-	
-	
 	
 	public boolean hayEspacio() {
 		return false;
@@ -27,6 +25,4 @@ public abstract class Alimento extends Entity {
 	public void accept(Snake serpiente) {
 		serpiente.visit(this);
 	}
-	
-
 }

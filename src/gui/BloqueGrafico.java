@@ -7,17 +7,18 @@ import entidades.powerups.*;
 import logica.Snake;
 
 public class BloqueGrafico {
+	
 	public static final String ImagenBloque0 = "src/textures/blocks/bloque_0.png";
-	public static final String ImagenBloque1 ="src/textures/blocks/bloque_1.png";
-	public static final String ImagenWall ="src/textures/blocks/wall.png";
-	public static final String ImagenAlimento0 ="src/textures/alimentos/alimento_0.png";
-	public static final String ImagenAlimento1 ="src/textures/alimentos/alimento_1.png";
-	public static final String ImagenAlimento2 ="src/textures/alimentos/alimento_2.png";
-	public static final String ImagenAlimento3 ="src/textures/alimentos/alimento_3.png";
-	public static final String ImagenAlimento4 ="src/textures/alimentos/alimento_4.png";
-	public static final String ImagenPowerUp0 ="src/textures/powerups/powerup_0.png";
-	public static final String ImagenPowerUp1 ="src/textures/powerups/powerup_1.png";
-	public static final String ImagenPowerUp2 ="src/textures/powerups/powerup_2.png";
+	public static final String ImagenBloque1 = "src/textures/blocks/bloque_1.png";
+	public static final String ImagenWall = "src/textures/blocks/wall.png";
+	public static final String ImagenAlimento0 = "src/textures/alimentos/alimento_0.png";
+	public static final String ImagenAlimento1 = "src/textures/alimentos/alimento_1.png";
+	public static final String ImagenAlimento2 = "src/textures/alimentos/alimento_2.png";
+	public static final String ImagenAlimento3 = "src/textures/alimentos/alimento_3.png";
+	public static final String ImagenAlimento4 = "src/textures/alimentos/alimento_4.png";
+	public static final String ImagenPowerUp0 = "src/textures/powerups/powerup_0.png";
+	public static final String ImagenPowerUp1 = "src/textures/powerups/powerup_1.png";
+	public static final String ImagenPowerUp2 = "src/textures/powerups/powerup_2.png";
 	public static final String ImagenBodyDefault = "src/textures/bodies/body-default.png";
 	public static final String ImagenBodyGreen = "src/textures/bodies/body-green.png";
 	public static final String ImagenBodyPink = "src/textures/bodies/body-pink.png";
@@ -39,13 +40,12 @@ public class BloqueGrafico {
 	public static final String ImagenDerechaRed = "src/textures/hr/head-right-red.png";
 	public static final String ImagenIzquierdaRed = "src/textures/hr/head-left-red.png";
 	
-	
 	protected ImageIcon imagen;
 	protected int x, y;
 
-	public BloqueGrafico(int x,int y,String img) {
-		this.x=x;
-		this.y=y;
+	public BloqueGrafico(int x, int y, String img) {
+		this.x = x;
+		this.y = y;
 		imagen = new ImageIcon(img);
 		imagen = new ImageIcon(imagen.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH));
 		GUI.getGUI().addBloqueGrafico(this);
@@ -54,7 +54,6 @@ public class BloqueGrafico {
 	public void setImagen(String img) {
 		imagen = new ImageIcon(img);
 		GUI.getGUI().addBloqueGrafico(this);
-
 	}
 	
 	public void setImagen (Alimento0 a) {
@@ -81,22 +80,19 @@ public class BloqueGrafico {
 	public void setImagen (PowerUp2 a) {
 		setImagen(ImagenPowerUp2);
 	}
-	
-	
 
 	public ImageIcon getImagen() {
 		return imagen;
 	}
 	
-	public void setPosition(int x,int y) {
-		this.x=x;
-		this.y=y;
+	public void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
 		GUI.getGUI().addBloqueGrafico(this);
 	}
 	
 	public int getX() {
 		return x;
-		
 	}
 	
 	public int getY() {
@@ -179,9 +175,5 @@ public class BloqueGrafico {
 			}
 			break;
 		}
-		
-
-	}
-		
-	}
-
+	}		
+}
