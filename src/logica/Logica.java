@@ -7,7 +7,7 @@ public class Logica {
 	
 	protected boolean gameOver = false;
 	protected Ranking ranking;
-	protected GrillaNueva tablero;
+	protected Grilla tablero;
 	protected int puntos;
 	private static Logica miLogica;
 	
@@ -19,7 +19,7 @@ public class Logica {
 	}
 
 	private Logica() {
-		tablero = new GrillaNueva(this);
+		tablero = new Grilla(this);
 		ranking = new Ranking();
 		GUI.getGUI().setNivelActual(0);
 		GUI.getGUI().setVisible(true);
@@ -40,7 +40,7 @@ public class Logica {
 		return puntos;
 	}
 
-	public GrillaNueva getGrilla() {
+	public Grilla getGrilla() {
 		return tablero;
 	}
 

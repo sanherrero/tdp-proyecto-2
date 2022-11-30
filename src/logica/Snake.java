@@ -10,7 +10,7 @@ import gui.BloqueGrafico;
 public class Snake {
 
 	protected Logica miJuego;
-	protected GrillaNueva miGrilla;
+	protected Grilla miGrilla;
 	protected int colaAAgrandar;
 	protected int x;
 	protected int y;
@@ -29,7 +29,7 @@ public class Snake {
 	public static final int DireccionIzquierda = 2;
 	public static final int DireccionDerecha = 3;
 
-	public Snake(Queue<Pos> posiciones, Logica j, GrillaNueva g) {
+	public Snake(Queue<Pos> posiciones, Logica j, Grilla g) {
 		miGrilla = g;
 		miJuego = j;
 		puntaje = 0;

@@ -5,7 +5,7 @@ import java.util.Queue;
 import entidades.alimentos.*;
 import entidades.powerups.*;
 
-public class GrillaNueva {
+public class Grilla {
 	
 	int nivelActual = 0;
 	protected Snake serpiente;
@@ -15,7 +15,7 @@ public class GrillaNueva {
 	protected Logica miJuego;
 	protected LevelGenerator miGenerador;
 
-	public GrillaNueva(Logica l) {
+	public Grilla(Logica l) {
 		tablero = new Bloque[20][20];
 		alimentos = new ArrayDeque<Integer>();
 		powerups = new ArrayDeque<Integer>();
