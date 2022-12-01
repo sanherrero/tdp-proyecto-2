@@ -12,9 +12,6 @@ public class Snake {
 	protected Logica miJuego;
 	protected Grilla miGrilla;
 	protected int colaAAgrandar;
-	protected int x;
-	protected int y;
-	protected int tiempoS;
 	protected int puntaje;
 	protected Bloque cabeza;
 	protected List<Bloque> listaCuerpo;
@@ -33,7 +30,6 @@ public class Snake {
 		miGrilla = g;
 		miJuego = j;
 		puntaje = 0;
-		tiempoS = 0;
 		listaCuerpo = new ArrayList<Bloque>();
 		while (!posiciones.isEmpty()) {
 			Pos pos;
@@ -183,13 +179,6 @@ public class Snake {
 
 	// hilo de ejecucion del tiempo de la snake
 
-	public int getTiempo() {
-		return tiempoS;
-	}
-
-	public void setTiempo(int t) {
-		tiempoS = t;
-	}
 
 	public List<Bloque> getCuerpo() {
 		return listaCuerpo;

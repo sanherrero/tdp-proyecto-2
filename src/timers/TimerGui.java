@@ -6,24 +6,16 @@ import logica.Snake;
 public class TimerGui implements Runnable {
 
 	private double time, tiempoTranscurrido, reducir;
-	private GUI gui;
-	private Snake snake;
+
 	int h, m, s;
 	private boolean run = true;
 
-	public TimerGui(GUI g) {
-		gui = g;
+	public TimerGui() {
 		ponerACero();
 		reducir = 1;
 		h = 0;
 		m = 0;
 		s = 0;
-	}
-
-	public TimerGui(Snake s, double n) {
-		ponerACero();
-		snake = s;
-		reducir = n;
 	}
 
 	private void ponerACero() {
@@ -45,15 +37,27 @@ public class TimerGui implements Runnable {
 						ponerACero();
 					}
 				}
-				gui.Tiempo().setText("" + h + ":" + m + ":" + s);
+				GUI.getGUI().Tiempo("" + h + ":" + m + ":" + s);
 			} else {
-				snake.setTiempo((int) tiempoTranscurrido);
 			}
 		}
 	}
 
 	public void pararRun() {
 		this.run = false;
+	}
+
+	public boolean getRun() {
+		return run;
+	}
+	public int getH() {
+		return h;
+	}
+	public int getM() {
+		return m;
+	}
+	public int getS() {
+		return s;
 	}
 
 	public String getTiempo() {

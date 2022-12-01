@@ -16,13 +16,9 @@ import javax.swing.WindowConstants;
 
 import logica.Logica;
 
-import score.Ranking;
-import timers.*;
-
 
 import java.awt.Font;
 
-@SuppressWarnings("serial")
 public class GUI extends JFrame {
 
 	private static int height;
@@ -31,12 +27,7 @@ public class GUI extends JFrame {
 	private static JLabel lbl_tiempo;
 	private static JLabel lbl_puntos;
 	private static JLabel lbl_nivelactual;
-	private static TimerGui timerTiempo;
-	private static TimerSnake timerSerpiente;
-	private Thread hiloMovSnake;
-	private Thread hiloTiempo;
-	private static Oyente teclado;
-	private Ranking ranking;
+	static Oyente teclado;
 	protected static JLabel lbltexto_top1, lbltexto_top2, lbltexto_top3, lbltexto_top4, lbltexto_top5;
 	private static GUI miGUI;
 	private static JPanel panelIzq,panel,panelDer;
@@ -63,7 +54,6 @@ public class GUI extends JFrame {
 		pack();
 		iniciarPaneles();
 		iniciarLabels();
-		setLblTop5();
 		iniciarTableros();
 		teclado = new Oyente();
 		this.addKeyListener(teclado);
@@ -192,9 +182,7 @@ public class GUI extends JFrame {
 		}
 	}
 	
-	public void setLblTop5() {
-		ranking = new Ranking();
-		String[] top5 =ranking.getTopFive();
+	public void setLblTop5(String[] top5) {
 		lbltexto_top1.setText(top5[0]);
 		lbltexto_top2.setText(top5[1]);
 		lbltexto_top3.setText(top5[2]);
@@ -212,8 +200,8 @@ public class GUI extends JFrame {
 		lbl_puntos.setText(Integer.toString(p));
 	}
 
-	public JLabel Tiempo() {
-		return lbl_tiempo;
+	public void Tiempo(String t) {
+		lbl_tiempo.setText(t);;
 	}
 
 	public void gameOver(boolean gane, int score) {
@@ -229,14 +217,12 @@ public class GUI extends JFrame {
 		setNivelActual(0);
 
 		actualizarPuntos(Logica.getLogica().getPuntos());
-		stopHilos();
-		teclado.setIniciarHilos();
+		
+		
 		if(userName == null || userName.isEmpty()) {
 			userName = "Anonimo";
 		}
-		ranking.escribirArchivo(score, timerTiempo.getTiempo(), userName);
-		ranking.ordenarLista();
-		setLblTop5();
+		Logica.getLogica().agregarARanking(userName, score);
 		if(score == 0) {
 			JOptionPane.showMessageDialog(null, "Dale, " + userName + ", no es tan difícil.");
 		} else {
@@ -248,39 +234,28 @@ public class GUI extends JFrame {
 		lbl_nivelactual.setText(String.valueOf(i+1));
 	}
 
-	private void startHilos() {
-		timerTiempo = new TimerGui(this);
-		hiloTiempo = new Thread(timerTiempo);
-		hiloTiempo.start();
-
-		timerSerpiente = new TimerSnake();
-		hiloMovSnake = new Thread(timerSerpiente);
-		hiloMovSnake.start();
-	}
-
-	public void stopHilos() {
-		timerTiempo.pararRun();
-		timerSerpiente.pararRun();
-		teclado.setIniciarHilos();
-	}
+	
 
 	public void addBloqueGrafico(BloqueGrafico b) {
 		tableroLbl[b.getX()][b.getY()].setIcon(b.getImagen());
 		repaint();
 	}
+	public void siguienteNivel(int i) {
+		JOptionPane.showMessageDialog(null, "Pasaste de nivel!");
+		lbl_tiempo.setText("0:0:0");
+		lbl_nivelactual.setText(String.valueOf(i));
+		repaint();
+	}
 
 	private class Oyente implements KeyListener {
-		boolean iniciarHilos = true;
+		
 
 		public void keyTyped(KeyEvent e) {
 			
 		}
 
 		public void keyPressed(KeyEvent e) {
-			if (iniciarHilos) {
-				iniciarHilos = false;
-				startHilos();
-			}
+			
 			if (e.getKeyChar() == 'w' || e.getKeyChar() == 'W' || e.getExtendedKeyCode() == KeyEvent.VK_UP) {
 
 				Logica.getLogica().cambiarDireccionSnake(0);
@@ -305,18 +280,7 @@ public class GUI extends JFrame {
 
 		}
 
-		public void setIniciarHilos() {
-			iniciarHilos = true;
-		}
+		
 
-	}
-
-	public void siguienteNivel(int i) {
-		JOptionPane.showMessageDialog(null, "Pasaste de nivel!");
-		GUI.getGUI().stopHilos();
-		teclado.setIniciarHilos();
-		lbl_tiempo.setText("0:0:0");
-		lbl_nivelactual.setText(String.valueOf(i));
-		repaint();
 	}
 }

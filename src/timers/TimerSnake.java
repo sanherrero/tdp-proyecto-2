@@ -4,17 +4,14 @@ import logica.Logica;
 import logica.Snake;
 
 public class TimerSnake extends Thread {
-
-	private Snake snake;
 	private boolean run=true;
 	
 	public TimerSnake() {
-		snake= Logica.getLogica().getGrilla().getSnake();
 	}
 	
 	public void run() {
 		while(run) {
-			snake.mover();
+			Logica.getLogica().moverSnake();
 			try {
 				sleep(400);
 			} catch (InterruptedException e) {
@@ -25,5 +22,9 @@ public class TimerSnake extends Thread {
 	
 	public void pararRun() {
 		this.run = false;
+	}
+
+	public boolean getRun() {
+		return run;
 	}
 }
